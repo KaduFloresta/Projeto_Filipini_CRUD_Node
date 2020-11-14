@@ -31,7 +31,14 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - Alisson Wenceslau.
 - Kadu Floresta.
 - Leornado Filipini.
-- Lucas ELmer.
+- Lucas Elmer.
+
+**Classes**
+- [X] Usuários.
+- [ ] Endereços.
+- [X] Produtos.
+- [ ] Vendas.
+- [ ] Vendas_Produtos.
 
 **FrontEnd**
 - [ ] Vuetify.
