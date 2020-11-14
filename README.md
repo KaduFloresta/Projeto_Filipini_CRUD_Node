@@ -33,6 +33,8 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - Leornado Filipini.
 - Lucas Elmer.
 
+---
+
 **Classes**
 - [X] Usuários.
 - [ ] Endereços.
