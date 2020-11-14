@@ -1,4 +1,8 @@
-<h2> Author: Kadu Floresta. <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
+<h2> Authors:</h2> 
+<h3> Alisson Wenceslau. <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h3>
+<h3> Kadu Floresta. <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h3>
+<h3> Leonardo Filipini. <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h3>
+
 <img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="470";/>
 
 <a href="https://www.linkedin.com/in/kadufloresta/">
@@ -26,3 +30,20 @@
 
 # Projeto_Filipini_CRUD_Node
 Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login e autorizações, tela de vendas de produtos, cadastro de clientes e Estoque.
+
+**FrontEnd**
+- [ ] Vuetify.
+
+**BacktEnd**
+- [X] Javascript.
+- [X] Node.
+- [X] MVC.
+- [X] API.
+- [X] Autenticação/Login.
+
+**Banco de Dados**
+- [X] Configuração/Conexão.
+- [X] Rotas.
+- [X] SQL.
+- [X] Teste - Postman.
+---
