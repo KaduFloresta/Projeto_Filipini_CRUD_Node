@@ -26,6 +26,7 @@
 --   `marca` VARCHAR(45) NULL,
 --   `fornecedor` VARCHAR(45) NULL,
 --   `validade` VARCHAR(45) NULL,
+--   `preco` VARCHAR(45) NULL,
 --   PRIMARY KEY (`id_produtos`));
 
 
