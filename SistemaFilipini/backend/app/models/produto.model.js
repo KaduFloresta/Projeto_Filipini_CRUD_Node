@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 // Construtor
-const ProdutoModel = function (produto) {
+const Produto = function (produto) {
     this.nome = produto.nome;
     this.marca = produto.marca;
     this.fornecedor = produto.fornecedor;
@@ -10,7 +10,7 @@ const ProdutoModel = function (produto) {
 }
 
 // Cria um novo produto no BD
-ProdutoModel.create = (produto, result) => {
+Produto.create = (produto, result) => {
     // Implementar criação de um novo produto no BD
     sql.query("INSERT INTO produtos SET ? ", produto, (err, res) => {
         if (err) {
@@ -24,7 +24,7 @@ ProdutoModel.create = (produto, result) => {
 };
 
 // Seleciona um produto através do ID
-ProdutoModel.findById = (produtoId, result) => {
+Produto.findById = (produtoId, result) => {
     sql.query("SELECT * FROM produtos WHERE id_produtos = " + produtoId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
@@ -45,7 +45,7 @@ ProdutoModel.findById = (produtoId, result) => {
 };
 
 // Seleciona todos os produtos
-ProdutoModel.getAll = (result) => {
+Produto.getAll = (result) => {
     sql.query("SELECT * FROM produtos", (err, res) => {
         if (err) {
             console.log("Erro!", err);
@@ -58,14 +58,15 @@ ProdutoModel.getAll = (result) => {
 };
 
 // Atualizar o produto através do ID
-ProdutoModel.updateById = (produtoId, produto, result) => {
-
+Produto.updateById = (produtoId, produto, result) => {
     this.nome = produto.nome;
     this.marca = produto.marca;
     this.fornecedor = produto.fornecedor;
     this.validade = produto.validade;
     this.preco = produto.preco;
-    sql.query("UPDATE produtos SET nome = ?, marca = ?, fornecedor = ?,  validade = ?, preco = ? WHERE id_produtos = ?", [produto.nome, produto.marca, produto.fornecedor, produto.validade, produto.preco, produtoId], (err, res) => {
+    sql.query(`UPDATE produtos 
+               SET nome = ?, marca = ?, fornecedor = ?,  validade = ?, preco = ? 
+               WHERE id_produtos = ?`, [produto.nome, produto.marca, produto.fornecedor, produto.validade, produto.preco, produtoId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -81,7 +82,7 @@ ProdutoModel.updateById = (produtoId, produto, result) => {
 };
 
 // Remover o produto através do ID
-ProdutoModel.remove = (produtoId, result) => {
+Produto.remove = (produtoId, result) => {
     sql.query("DELETE FROM produtos WHERE id_produtos = ?", produtoId, (err, re) => {
         if (err) {
             console.log("Erro", err);
@@ -97,7 +98,7 @@ ProdutoModel.remove = (produtoId, result) => {
 };
 
 // Remover todos os produtos
-ProdutoModel.removeAll = (result) => {
+Produto.remove = (result) => {
     sql.query("DELETE FROM produtos", (err, re) => {
         if (err) {
             console.log("Erro", err);
@@ -109,4 +110,4 @@ ProdutoModel.removeAll = (result) => {
     });
 };
 
-module.exports = ProdutoModel;
+module.exports = Produto;

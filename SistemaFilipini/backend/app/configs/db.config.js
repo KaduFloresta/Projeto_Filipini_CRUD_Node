@@ -2,5 +2,5 @@ module.exports = {
     HOST: "localhost",
     USER: "root",
     PASSWORD: "",
-    DB: "embutidos_filipinidb"
+    DB: "db_filipini"
 }
