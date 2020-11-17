@@ -15,7 +15,7 @@ exports.create = (req, res) => {
             preco: req.body.preco
         });
 
-        produtoModel.create(produto, (err, data) => {
+        ProdutoModel.create(produto, (err, data) => {
             if (err) {
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro!"
@@ -28,20 +28,8 @@ exports.create = (req, res) => {
     }
 }
 
-exports.findAll = (req, res) => {
-    produtoModel.getAll((err, data) => {
-        if (err) {
-            res.status(500).send({
-                message: err.message || "Ocorreu algum erro!"
-            });
-        }
-        else
-            res.send(data);
-    });
-};
-
 exports.findOne = (req, res) => {
-    produtoModel.findById(req.params.produtoId, (err, data) => {
+    ProdutoModel.findById(req.params.produtoId, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
@@ -59,6 +47,19 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findAll = (req, res) => {
+    produtoModel.getAll((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Ocorreu algum erro!"
+            });
+        }
+        else
+            res.send(data);
+    });
+};
+
+
 exports.update = (req, res) => {
     if (!req.body.nome && !req.body.marca && !req.body.fornecedor && !req.body.validade && !req.body.preco) {
         res.status(400).send({
@@ -74,7 +75,7 @@ exports.update = (req, res) => {
             preco: req.body.preco
         });
 
-        produtoModel.updateById(req.params.produtoId, produto, (err, data) => {
+        ProdutoModel.updateById(req.params.produtoId, produto, (err, data) => {
             if (err) {
                 if (err.kind == "not_found") {
                     res.status(404).send({
