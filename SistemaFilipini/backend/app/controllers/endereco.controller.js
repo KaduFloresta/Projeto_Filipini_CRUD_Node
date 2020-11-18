@@ -1,7 +1,7 @@
 const EnderecoModel = require("../models/endereco.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.rua && !req.body.numero && !req.body.bairro && !req.body.cidade && !req.body.estado) {
+    if (!req.body.rua || !req.body.numero || !req.body.bairro || !req.body.cidade || !req.body.estado || !req.body.cep) {
         res.status(400).send({
             message: "Conteúdo da Requisição está Vazio."
         });
@@ -12,7 +12,9 @@ exports.create = (req, res) => {
             numero: req.body.numero,
             bairro: req.body.bairro,
             cidade: req.body.cidade,
-            estado: req.body.estado
+            estado: req.body.estado,
+            cep: req.body.cep
+
         });
 
         EnderecoModel.create(endereco, (err, data) => {
@@ -61,7 +63,7 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.rua && !req.body.numero && !req.body.bairro && !req.body.cidade && !req.body.estado) {
+    if (!req.body.rua || !req.body.numero || !req.body.bairro || !req.body.cidade || !req.body.estado || !req.body.cep) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
@@ -72,7 +74,9 @@ exports.update = (req, res) => {
             numero: req.body.numero,
             bairro: req.body.bairro,
             cidade: req.body.cidade,
-            estado: req.body.estado
+            estado: req.body.estado,
+            cep: req.body.cep
+
         });
 
         EnderecoModel.updateById(req.params.enderecoId, endereco, (err, data) => {

@@ -48,7 +48,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    produtoModel.getAll((err, data) => {
+    ProdutoModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro!"
