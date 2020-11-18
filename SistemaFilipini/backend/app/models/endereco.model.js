@@ -7,6 +7,7 @@ const Endereco = function (endereco) {
     this.bairro = endereco.bairro;
     this.cidade = endereco.cidade;
     this.estado = endereco.estado;
+    this.cep = endereco.cep;
 }
 
 // Cria um novo endereco no BD
@@ -25,7 +26,7 @@ Endereco.create = (endereco, result) => {
 
 // Seleciona um endereco através do ID
 Endereco.findById = (enderecoId, result) => {
-    sql.query("SELECT * FROM enderecos WHERE id_enderecos = " + enderecoId, (err, res) => {
+    sql.query("SELECT * FROM enderecos WHERE idEnderecos = " + enderecoId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -64,21 +65,22 @@ Endereco.updateById = (enderecoId, endereco, result) => {
     this.bairro = endereco.bairro;
     this.cidade = endereco.cidade;
     this.estado = endereco.estado;
-    sql.query(`UPDATE enderecos 
-               SET rua = ?, numero = ?, bairro = ?,  cidade = ?, estado = ? 
-               WHERE id_enderecos = ?`, [endereco.rua, endereco.numero, endereco.bairro, endereco.cidade, endereco.estado, enderecoId], (err, res) => {
-        if (err) {
-            console.log("Erro", err);
-            result(null, err);
-        }
-        else if (res.affectedRows == 0) {
-            result({ kind: "not_found" }, null);
-        }
-        else {
-            console.log("endereco atualizado: ", { id_enderecos: enderecoId, ...endereco });
-            result(null, { id_enderecos: enderecoId, ...endereco });
-        }
-    });
+    this.cep = endereco.cep;
+sql.query(`UPDATE enderecos 
+               SET rua = ?, numero = ?, bairro = ?,  cidade = ?, estado = ? cep = ?
+               WHERE idEnderecos = ?`, [endereco.rua, endereco.numero, endereco.bairro, endereco.cidade, endereco.estado, endereco.cep, enderecoId], (err, res) => {
+    if (err) {
+        console.log("Erro", err);
+        result(null, err);
+    }
+    else if (res.affectedRows == 0) {
+        result({ kind: "not_found" }, null);
+    }
+    else {
+        console.log("endereco atualizado: ", { id_enderecos: enderecoId, ...endereco });
+        result(null, { id_enderecos: enderecoId, ...endereco });
+    }
+});
 };
 
 // Remover o endereco através do ID
