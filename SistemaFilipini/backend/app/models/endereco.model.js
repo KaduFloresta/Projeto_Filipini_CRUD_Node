@@ -19,8 +19,8 @@ Endereco.create = (endereco, result) => {
             result(err, null);
             return;
         }
-        console.log("enderecos criado: ", { id_enderecos: res.insertid, ...endereco });
-        result(null, { id_enderecos: res.insertid, ...endereco });
+        console.log("enderecos criado: ", { idEnderecos: res.insertid, ...endereco });
+        result(null, { idEnderecos: res.insertid, ...endereco });
     });
 };
 
@@ -66,26 +66,26 @@ Endereco.updateById = (enderecoId, endereco, result) => {
     this.cidade = endereco.cidade;
     this.estado = endereco.estado;
     this.cep = endereco.cep;
-sql.query(`UPDATE enderecos 
-               SET rua = ?, numero = ?, bairro = ?,  cidade = ?, estado = ? cep = ?
+    sql.query(`UPDATE enderecos 
+               SET rua = ?, numero = ?, bairro = ?,  cidade = ?, estado = ?, cep = ?
                WHERE idEnderecos = ?`, [endereco.rua, endereco.numero, endereco.bairro, endereco.cidade, endereco.estado, endereco.cep, enderecoId], (err, res) => {
-    if (err) {
-        console.log("Erro", err);
-        result(null, err);
-    }
-    else if (res.affectedRows == 0) {
-        result({ kind: "not_found" }, null);
-    }
-    else {
-        console.log("endereco atualizado: ", { id_enderecos: enderecoId, ...endereco });
-        result(null, { id_enderecos: enderecoId, ...endereco });
-    }
-});
+        if (err) {
+            console.log("Erro", err);
+            result(null, err);
+        }
+        else if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+        }
+        else {
+            console.log("Endereco atualizado: ", { id_enderecos: enderecoId, ...endereco });
+            result(null, { id_enderecos: enderecoId, ...endereco });
+        }
+    });
 };
 
 // Remover o endereco através do ID
 Endereco.remove = (enderecoId, result) => {
-    sql.query("DELETE FROM enderecos WHERE id_enderecos = ?", enderecoId, (err, re) => {
+    sql.query("DELETE FROM enderecos WHERE idEnderecos = ?", enderecoId, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -100,14 +100,14 @@ Endereco.remove = (enderecoId, result) => {
 };
 
 // Remover todos os enderecos
-Endereco.remove = (result) => {
-    sql.query("DELETE FROM enderecos", (err, re) => {
+Endereco.removeAll = (result) => {
+    sql.query("DELETE FROM enderecos", (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(err);
         }
         else {
-            result(null);
+            result(null,);
         }
     });
 };

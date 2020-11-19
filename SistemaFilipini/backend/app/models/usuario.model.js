@@ -48,7 +48,7 @@ Usuario.findBylogin = (login, result) => {
 
 // Seleciona um usuario através do ID
 Usuario.findById = (idUsuario, result) => {
-    sql.query(`SELECT * FROM usuarios WHERE id_usuarios = '${idUsuario}'`, (err, res) => {
+    sql.query(`SELECT * FROM usuarios WHERE idUsuarios = '${idUsuario}'`, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -91,7 +91,7 @@ Usuario.updateById = (usuarioId, usuario, result) => {
     this.cpf = usuario.cpf;
     sql.query(`UPDATE usuarios 
                SET login = ?, senha = ?, tipo = ?,  nome = ?, fone = ?,  cpf = ?  
-               WHERE id_usuarios = ?`, [usuario.login, usuario.senha, usuario.tipo, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
+               WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipo, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -100,15 +100,15 @@ Usuario.updateById = (usuarioId, usuario, result) => {
             result({ kind: "not_found" }, null);
         }
         else {
-            console.log("usuario atualizado: ", { id_usuarios: usuarioId, ...usuario });
-            result(null, { id_usuarios: usuarioId, ...usuario });
+            console.log("usuario atualizado: ", { idUsuarios: usuarioId, ...usuario });
+            result(null, { idUsuarios: usuarioId, ...usuario });
         }
     });
 };
 
 // Remover o usuario através do ID
 Usuario.remove = (usuarioId, result) => {
-    sql.query("DELETE FROM usuarios WHERE id_usuarios = ?", usuarioId, (err, re) => {
+    sql.query("DELETE FROM usuarios WHERE idUsuarios = ?", usuarioId, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -123,8 +123,8 @@ Usuario.remove = (usuarioId, result) => {
 };
 
 // Remover todos os usuarios
-Usuario.remove = (result) => {
-    sql.query("DELETE FROM usuarios", (err, re) => {
+Usuario.removeAll = (result) => {
+    sql.query("DELETE FROM usuarios", (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(err);

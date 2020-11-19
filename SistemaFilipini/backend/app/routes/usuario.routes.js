@@ -7,7 +7,6 @@ module.exports = app => {
     app.post("/signup", usuarioController.signUp);
     // POST = Logar no sistema
     app.post("/signin", usuarioController.signIn);
-
     // GET = "Buscando" um usuario no BD pelo ID
     app.get("/usuarios/:usuarioId", usuarioController.findOne);
     // GET = "Buscando" todos os usuarios no BD
