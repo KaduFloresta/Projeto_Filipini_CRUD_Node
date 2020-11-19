@@ -7,7 +7,7 @@ exports.create = (req, res) => {
         });
     }
     else {
-        const produto = new produtoModel({
+        const produto = new ProdutoModel({
             nome: req.body.nome,
             marca: req.body.marca,
             fornecedor: req.body.fornecedor,
@@ -67,7 +67,7 @@ exports.update = (req, res) => {
         });
     }
     else {
-        const produto = new produtoModel({
+        const produto = new ProdutoModel({
             nome: req.body.nome,
             marca: req.body.marca,
             fornecedor: req.body.fornecedor,
@@ -96,7 +96,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    ProdutoModel.remove.apply(req.params.produtoId, (res, data) => {
+    ProdutoModel.remove(req.params.produtoId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Produto não encontrado!" });
@@ -112,7 +112,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    ProdutoModel.remove((err) => {
+    ProdutoModel.removeAll((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todos os produtos" });
         }

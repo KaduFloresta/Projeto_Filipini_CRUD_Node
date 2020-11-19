@@ -14,7 +14,6 @@ exports.create = (req, res) => {
             cidade: req.body.cidade,
             estado: req.body.estado,
             cep: req.body.cep
-
         });
 
         EnderecoModel.create(endereco, (err, data) => {
@@ -100,7 +99,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    EnderecoModel.remove.apply(req.params.enderecoId, (res, data) => {
+    EnderecoModel.remove(req.params.enderecoId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Endereco não encontrado!" });
@@ -116,7 +115,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    EnderecoModel.remove((err) => {
+    EnderecoModel.removeAll((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todos os enderecos" });
         }

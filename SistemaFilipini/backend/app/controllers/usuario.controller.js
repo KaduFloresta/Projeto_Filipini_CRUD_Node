@@ -56,13 +56,13 @@ exports.signIn = (req, res) => {
                 });
             }
             else {
-                let token = jwt.sign({ id: data.idusuarios }, config.secret, {
+                let token = jwt.sign({ id: data.idUsuarios }, config.secret, {
                     expiresIn: 86400 // 24 Horas em segundos
                 });
 
                 res.status(200).send({
                     accessToken: token,
-                    id: data.idusuarios,
+                    id: data.idUsuarios,
                     login: data.login,
                     tipo: data.data
                 });
@@ -140,7 +140,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    UsuarioModel.remove.apply(req.params.usuarioId, (res, data) => {
+    UsuarioModel.remove(req.params.usuarioId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Usuário não encontrado!" });
@@ -156,7 +156,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    UsuarioModel.remove((err) => {
+    UsuarioModel.removeAll((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todos os usuários!" });
         }

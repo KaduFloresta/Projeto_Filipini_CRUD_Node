@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Nov-2020 às 23:48
+-- Tempo de geração: 19-Nov-2020 às 00:10
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.11
 
@@ -19,9 +19,9 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `db_filipini`
+-- Banco de dados: `filipiniteste`
 --
-CREATE DATABASE `filipiniTESTE`;
+
 -- --------------------------------------------------------
 
 --

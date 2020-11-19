@@ -18,14 +18,14 @@ Produto.create = (produto, result) => {
             result(err, null);
             return;
         }
-        console.log("produtos criado: ", { id_produtos: res.insertid, ...produto });
-        result(null, { id_produtos: res.insertid, ...produto });
+        console.log("Produto criado: ", { idProdutos: res.insertid, ...produto });
+        result(null, { idProdutos: res.insertid, ...produto });
     });
 };
 
 // Seleciona um produto através do ID
 Produto.findById = (produtoId, result) => {
-    sql.query("SELECT * FROM produtos WHERE id_produtos = " + produtoId, (err, res) => {
+    sql.query("SELECT * FROM produtos WHERE idProdutos = " + produtoId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -66,7 +66,7 @@ Produto.updateById = (produtoId, produto, result) => {
     this.preco = produto.preco;
     sql.query(`UPDATE produtos 
                SET nome = ?, marca = ?, fornecedor = ?,  validade = ?, preco = ? 
-               WHERE id_produtos = ?`, [produto.nome, produto.marca, produto.fornecedor, produto.validade, produto.preco, produtoId], (err, res) => {
+               WHERE idProdutos = ?`, [produto.nome, produto.marca, produto.fornecedor, produto.validade, produto.preco, produtoId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -75,15 +75,15 @@ Produto.updateById = (produtoId, produto, result) => {
             result({ kind: "not_found" }, null);
         }
         else {
-            console.log("Produto atualizado: ", { id_produtos: produtoId, ...produto });
-            result(null, { id_produtos: produtoId, ...produto });
+            console.log("Produto atualizado: ", { idProdutos: produtoId, ...produto });
+            result(null, { idProdutos: produtoId, ...produto });
         }
     });
 };
 
 // Remover o produto através do ID
 Produto.remove = (produtoId, result) => {
-    sql.query("DELETE FROM produtos WHERE id_produtos = ?", produtoId, (err, re) => {
+    sql.query("DELETE FROM produtos WHERE idProdutos = ?", produtoId, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -98,7 +98,7 @@ Produto.remove = (produtoId, result) => {
 };
 
 // Remover todos os produtos
-Produto.remove = (result) => {
+Produto.removeAll = (result) => {
     sql.query("DELETE FROM produtos", (err, re) => {
         if (err) {
             console.log("Erro", err);
