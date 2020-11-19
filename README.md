@@ -1,5 +1,5 @@
 <h2> Authores:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
-<h4> Kadu Floresta✅ Alisson Wenceslau✅ Leonardo Balitski✅ Lucas Elmer✅</h4>
+<h4> ✅Kadu Floresta --> ✅Alisson Wenceslau --> ✅Leonardo Balitski --> ✅Lucas Elmer</h4>
 <img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="460";/>
 
 <a href="https://www.linkedin.com/in/kadufloresta/">
