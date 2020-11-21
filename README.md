@@ -38,10 +38,10 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 **Classes**
 - [X] Usuários.
-- [ ] Endereços.
+- [X] Endereços.
 - [X] Produtos.
-- [ ] Vendas.
-- [ ] Vendas_Produtos.
+- [X] Vendas.
+- [X] Vendas_Produtos.
 
 **FrontEnd**
 - [ ] Vuetify.
@@ -58,4 +58,5 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] Rotas.
 - [X] SQL.
 - [X] Teste - Postman.
+
 ---
