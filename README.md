@@ -1,5 +1,6 @@
-<h2> Author: Kadu Floresta. <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
-<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="470";/>
+<h2> Authors:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
+<h4> ✅Kadu Floresta --> ✅Alisson Wenceslau --> ✅Leonardo Balitski --> ✅Lucas Elmer</h4>
+<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="460";/>
 
 <a href="https://www.linkedin.com/in/kadufloresta/">
  <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/profile.gif?raw=true" width="120px; alt=""/></b></a>  
@@ -25,36 +26,125 @@
 ---
 
 # Projeto_Filipini_CRUD_Node
+```
 Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login e autorizações, tela de vendas de produtos, cadastro de clientes e Estoque.
+```
 
 **Equipe**
+```
 - Alisson Wenceslau.
 - Kadu Floresta.
 - Leornado Filipini.
 - Lucas Elmer.
+```
 
 ---
 
-**Classes**
-- [X] Usuários.
-- [ ] Endereços.
-- [X] Produtos.
-- [ ] Vendas.
-- [ ] Vendas_Produtos.
-
+**Classes MVC**
+```
+- Usuários.
+- Endereços.
+- Produtos.
+- Vendas.
+- Vendas_Produtos.
+```
 **FrontEnd**
-- [ ] Vuetify.
+```
+-  Vuetify.
+```
 
 **BacktEnd**
-- [X] Javascript.
-- [X] Node.
-- [X] MVC.
-- [X] API.
-- [X] Autenticação/Login.
+```
+- Javascript.
+- Node.
+- MVC.
+- API.
+- Autenticação/Login.
+```
 
 **Banco de Dados**
-- [X] Configuração/Conexão.
-- [X] Rotas.
-- [X] SQL.
-- [X] Teste - Postman.
+```
+- Configuração/Conexão.
+- Rotas.
+- SQL.
+- Teste - Postman.
+```
+  
+---
+<h2><a href="https://github.com/KaduFloresta" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
+## Done n Missing Activities
+
+### Desenvolvimento BackEnd MVC
+- [X] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [X] endereço.
+- [X] produto.
+- [ ] venda.
+- [ ] produto_venda.
+
+### Desenvolvimento Banco de Dados
+- [X] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [X] endereço.
+- [X] produto.
+- [X] venda.
+- [X] produto_venda.
+  
+### Interação com SQL
+- [X] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [X] endereço.
+- [X] produto.
+- [X] venda.
+- [X] produto_venda.
+
+### Teste Postman CRUD
+- [X] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [X] endereço.
+- [X] produto.
+- [ ] venda.
+- [ ] produto_venda.
+
+### Desenvolvimento FrontkEnd - Vue (CRUD)
+**Login**
+- [ ] usuario.
+
+**Venda de Produtos**
+- [ ] usuario.
+
+**Create**
+- [X] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [ ] endereço.
+- [ ] produto.
+
+**Read**
+- [ ] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [ ] endereço.
+- [ ] produto.
+- [ ] venda.
+
+**Update**
+- [ ] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [ ] endereço.
+- [ ] produto.
+
+**Delete**
+- [ ] usuario.
+- [ ] cliente.
+- [ ] fornecedor.
+- [ ] endereço.
+- [ ] produto.
+- [ ] venda.
+
 ---
