@@ -2,13 +2,21 @@ const sql = require("./db.js");
 
 // Construtor
 const Usuario = function (usuario) {
+    this.tipoCadastro = usuario.tipoCadastro;
     this.login = usuario.login;
     this.senha = usuario.senha;
-    this.tipo = usuario.tipo;
+    this.tipoUsuario = usuario.tipoUsuario;
     this.nome = usuario.nome;
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
+    this.cnpj = usuario.cnpj;
+    // endereço: cliente, colaborador, fornecedor
 }
+
+// Dessa classe vai herdar:
+// - Cliente 
+// - Funcionario
+// - Fornecedor
 
 // Cria um novo usuario no BD
 Usuario.create = (usuario, result) => {
@@ -85,13 +93,13 @@ Usuario.updateById = (usuarioId, usuario, result) => {
 
     this.login = usuario.login;
     this.senha = usuario.senha;
-    this.tipo = usuario.tipo;
+    this.tipoUsuario = usuario.tipoUsuario;
     this.nome = usuario.nome;
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
     sql.query(`UPDATE usuarios 
-               SET login = ?, senha = ?, tipo = ?,  nome = ?, fone = ?,  cpf = ?  
-               WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipo, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
+               SET login = ?, senha = ?, tipoUsuario = ?,  nome = ?, fone = ?,  cpf = ?  
+               WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipoUsuario, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -124,7 +132,7 @@ Usuario.remove = (usuarioId, result) => {
 
 // Remover todos os usuarios
 Usuario.removeAll = (result) => {
-    sql.query("DELETE FROM usuarios", (err, re) => {
+    sql.query("DELETE FROM usuarios", (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(err);
