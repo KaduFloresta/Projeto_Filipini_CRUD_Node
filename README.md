@@ -48,7 +48,6 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - Vendas.
 - Vendas_Produtos.
 ```
-
 **FrontEnd**
 ```
 -  Vuetify.
@@ -60,7 +59,8 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - Node.
 - MVC.
 - API.
-- Autenticação/Login.```
+- Autenticação/Login.
+```
 
 **Banco de Dados**
 ```
@@ -69,6 +69,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - SQL.
 - Teste - Postman.
 ```
+  
 ---
 <h2><a href="https://github.com/KaduFloresta" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
 ## Done n Missing Activities
