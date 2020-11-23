@@ -1,9 +1,11 @@
 <h2> Authors:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
-<h4> ✅Kadu Floresta --> ✅Alisson Wenceslau --> ✅Leonardo Balitski --> ✅Lucas Elmer</h4>
+<h3> ✅ Kadu Floresta <br>
+ ✅ Alisson Wenceslau <br>
+ ✅ Leonardo Balitski <br>
+ ✅ Lucas Elmer</h3> 
 <img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="460";/>
 
-<a href="https://www.linkedin.com/in/kadufloresta/">
- <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/profile.gif?raw=true" width="120px; alt=""/></b></a>  
+  
  <br>
  
 <h3>:octocat: GitHub!</h3>
