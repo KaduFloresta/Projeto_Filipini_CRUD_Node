@@ -1,12 +1,12 @@
 <p><h2> Authors:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
-<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="480";/> 
-<h3 align="left"> ✅ Kadu Floresta <br>
+<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="440";/> 
+<h3> ✅ Kadu Floresta <br>
  ✅ Alisson Wenceslau <br>
  ✅ Leonardo Balitski <br>
  ✅ Lucas Elmer</h3> 
 
 <h3>:octocat: GitHub!</h3>
-</p><p>
+
  <code><a href="https://github.com/KaduFloresta" title="HomeGit">🏠 - Home</a><br></code><br>
  <code><a href="https://github.com/KaduFloresta?tab=repositories" title="RepoGit">📂 - Repositories</a><br></code>
 </p>
