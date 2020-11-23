@@ -69,7 +69,7 @@ export default {
       msgErro: "",
       itens: [
         { name: "Administrador", value: "admin" },
-        { name: "Funcionário", value: "funcionario" },
+        { name: "Funcionário", value: "colaborador" },
         { name: "Fornecedor", value: "fornecedor" },
       ],
 

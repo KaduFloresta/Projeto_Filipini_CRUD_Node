@@ -121,9 +121,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuarios`, `login`, `senha`, `tipo`, `nome`, `fone`, `email`, `cpf`, `enderecos_idEnderecos`) VALUES
 (1, 'floresta', '12345', 'Admin', 'Kadu Floresta', '47 9999 9999', 'carlos@gmail.com', '111.111.111-11', 1),
-(2, 'alisson', '456', 'funcionario', 'Alisson Wenceslau', '47 8888 8888', 'alisson@gmail.com', '222.222.222-22', 2),
-(3, 'leonardo', '789', 'funcionario', 'Leonardo FIlipini', '47 7777 7777', 'leonardo@uol.com', '333.333.333-33', 3),
-(4, 'lucas', '159', 'funcionario', 'Lucas Elmer', '47 5555 5555', 'lucas@uol.com', '444.444.444-44', 4);
+(2, 'alisson', '456', 'colaborador', 'Alisson Wenceslau', '47 8888 8888', 'alisson@gmail.com', '222.222.222-22', 2),
+(3, 'leonardo', '789', 'colaborador', 'Leonardo FIlipini', '47 7777 7777', 'leonardo@uol.com', '333.333.333-33', 3),
+(4, 'lucas', '159', 'colaborador', 'Lucas Elmer', '47 5555 5555', 'lucas@uol.com', '444.444.444-44', 4);
 
 -- --------------------------------------------------------
 

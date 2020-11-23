@@ -1,9 +1,10 @@
 const sql = require("./db.js");
 
-// Construtor
-const Venda = function (venda) {
+const newLocal = function (venda) {
     this.formaPgto = venda.formaPgto;
-}
+};
+// Construtor
+const Venda = newLocal
 
 // Cria um novo venda no BD
 Venda.create = (venda, result) => {

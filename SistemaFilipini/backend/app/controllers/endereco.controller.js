@@ -28,7 +28,7 @@ exports.create = (req, res) => {
         });
     }
 }
-
+//teste
 exports.findOne = (req, res) => {
     EnderecoModel.findById(req.params.enderecoId, (err, data) => {
         if (err) {

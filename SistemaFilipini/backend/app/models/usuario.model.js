@@ -124,7 +124,7 @@ Usuario.remove = (usuarioId, result) => {
 
 // Remover todos os usuarios
 Usuario.removeAll = (result) => {
-    sql.query("DELETE FROM usuarios", (err, res) => {
+    sql.query("DELETE FROM usuarios", (err, re) => {
         if (err) {
             console.log("Erro", err);
             result(err);

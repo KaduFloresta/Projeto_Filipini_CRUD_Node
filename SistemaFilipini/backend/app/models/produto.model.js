@@ -99,7 +99,7 @@ Produto.remove = (produtoId, result) => {
 
 // Remover todos os produtos
 Produto.removeAll = (result) => {
-    sql.query("DELETE FROM produtos", (err, re) => {
+    sql.query("DELETE FROM produtos", (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(err);
