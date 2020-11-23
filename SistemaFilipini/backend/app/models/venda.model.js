@@ -29,7 +29,7 @@ Venda.findById = (vendaId, result) => {
             return;
         }
 
-        if (res.length) {
+        else if (res.length) {
             console.log("vendas encontrado: ", res[0]);
             result(null, res[0]);
             return;

@@ -101,7 +101,7 @@ exports.findByProduto = (req, res) => {
 exports.update = (req, res) => {
     if (!req.body.produtos_idprodutos && !req.body.vendas_idvendas) {
         res.status(400).send({
-            message: "Conteúdo do corpo da requisição está vazio."
+            message: "O corpo da requisição está vazio."
         });
     }
     else {

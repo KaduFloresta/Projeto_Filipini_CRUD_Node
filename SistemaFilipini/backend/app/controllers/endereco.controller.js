@@ -19,7 +19,7 @@ exports.create = (req, res) => {
         EnderecoModel.create(endereco, (err, data) => {
             if (err) {
                 res.status(500).send({
-                    message: err.message || "Ocorreu um erro!"
+                    message: err.message || "Ocorreu um erro, nao foi possivel criar um endereço!"
                 });
             }
             else {
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
         });
     }
 }
-//teste
+
 exports.findOne = (req, res) => {
     EnderecoModel.findById(req.params.enderecoId, (err, data) => {
         if (err) {
@@ -39,7 +39,7 @@ exports.findOne = (req, res) => {
             }
             else {
                 res.send(500).send({
-                    message: "Erro ao retornar o endereco com ID: " + req.params.enderecoId
+                    message: "Erro ao retornar o ID do endereço: " + req.params.enderecoId
                 });
             }
         }
