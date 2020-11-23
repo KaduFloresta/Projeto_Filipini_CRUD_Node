@@ -71,7 +71,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 ```
   
 ---
-<h2><a href="https://github.com/KaduFloresta" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
+<h2><a href="https://github.com/KaduFloresta/Projeto_Filipini_CRUD_Node/blob/main/SistemaFilipini/frontend/db_filipini/comandos.md" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
 ## Done n Missing Activities
 
 ### Desenvolvimento BackEnd MVC
