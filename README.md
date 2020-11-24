@@ -1,16 +1,15 @@
-<h2> Authors:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
-<h4> ✅Kadu Floresta --> ✅Alisson Wenceslau --> ✅Leonardo Balitski --> ✅Lucas Elmer</h4>
-<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="460";/>
+<p><h2> Authors:<img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/Hi.gif?raw=true" width="25"></h2>
+<img align="right" alt="GIF" src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/gif2.gif?raw=true" width="440";/> 
+<h3> ✅ Kadu Floresta <br>
+ ✅ Alisson Wenceslau <br>
+ ✅ Leonardo Balitski <br>
+ ✅ Lucas Elmer</h3> 
 
-<a href="https://www.linkedin.com/in/kadufloresta/">
- <img src="https://github.com/KaduFloresta/KaduFloresta/blob/main/img/profile.gif?raw=true" width="120px; alt=""/></b></a>  
- <br>
- 
 <h3>:octocat: GitHub!</h3>
+
  <code><a href="https://github.com/KaduFloresta" title="HomeGit">🏠 - Home</a><br></code><br>
  <code><a href="https://github.com/KaduFloresta?tab=repositories" title="RepoGit">📂 - Repositories</a><br></code>
- 
-<br>
+</p>
 
 <h3>⭐ Find me on the WEB!</h3>
 
@@ -37,7 +36,6 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - Leornado Filipini.
 - Lucas Elmer.
 ```
-
 ---
 
 **Classes MVC**
@@ -71,7 +69,8 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 ```
   
 ---
-<h2><a href="https://github.com/KaduFloresta" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
+<h2><a href="https://github.com/KaduFloresta/Projeto_Filipini_CRUD_Node/blob/main/SistemaFilipini/frontend/db_filipini/comandos.md" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
+
 ## Done n Missing Activities
 
 ### Desenvolvimento BackEnd MVC

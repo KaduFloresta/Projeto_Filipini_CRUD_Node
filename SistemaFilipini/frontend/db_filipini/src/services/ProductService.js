@@ -1,13 +1,9 @@
 import http from "../http-common";
 
-class UserService {
-    signup(data) {
-        return http.post("/signup", data);
+class ProductService { 
+    create(data) {
+        return http.post("/produto", data);
     }
-
-    // signin(data) {
-
-    // };
 
     // findOne(data) {
 
@@ -27,7 +23,7 @@ class UserService {
 
     // deleteAll(data) {
 
-    // };
+    // };   
 }
 
-export default new UserService();
+export default new ProductService();
