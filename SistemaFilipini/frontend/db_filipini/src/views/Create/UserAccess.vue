@@ -103,7 +103,7 @@ export default {
         senha: this.senha,
         tipoUsuario: this.tipoUsuario
       };
-      UserService.signup(dados)
+      UserAccessService.signup(dados)
         .then((response) => {
           this.msgSucesso = response.data;
         })
