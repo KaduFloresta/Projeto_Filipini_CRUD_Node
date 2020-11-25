@@ -45,7 +45,7 @@ isBalcony = (req, res, next) => {
         }
         else {
             res.status(403).send({
-                message: "Somente usuários do balcão pode executar!"
+                message: "Somente colaborador do balcão pode executar!"
             });
         }
     });
@@ -58,7 +58,7 @@ isKitchen = (req, res, next) => {
         }
         else {
             res.status(403).send({
-                message: "Somente usuários da cozinha pode executar!"
+                message: "Somente colaborador da cozinha pode executar!"
             });
         }
     });

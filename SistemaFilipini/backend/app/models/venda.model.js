@@ -1,9 +1,10 @@
 const sql = require("./db.js");
 
-// Construtor
-const Venda = function (venda) {
+const newLocal = function (venda) {
     this.formaPgto = venda.formaPgto;
-}
+};
+// Construtor
+const Venda = newLocal
 
 // Cria um novo venda no BD
 Venda.create = (venda, result) => {
@@ -28,7 +29,7 @@ Venda.findById = (vendaId, result) => {
             return;
         }
 
-        if (res.length) {
+        else if (res.length) {
             console.log("vendas encontrado: ", res[0]);
             result(null, res[0]);
             return;

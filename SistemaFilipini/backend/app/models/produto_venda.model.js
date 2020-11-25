@@ -48,7 +48,7 @@ ProdutoVenda.findById = (produtoVendaId, result) => {
             return;
         }
 
-        if (res.length) {
+        else if (res.length) {
             console.log("Produtos encontrados: ", res[0]);
             result(null, res[0]);
             return;
@@ -60,19 +60,19 @@ ProdutoVenda.findById = (produtoVendaId, result) => {
     });
 };
 
-// Seleciona um produto dentro da venda através do ID do venda
+// Seleciona um produto dentro da venda através do ID da venda
 ProdutoVenda.findById = (vendaId, result) => {
     sql.query(`SELECT * FROM produtos_vendas prods_veds
     INNER JOIN vendas veds ON (veds.idVendas = prods_veds.vendas_idVendas)
     INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.produtos_idProdutos)
     WHERE veds.idVendas = ? ` + vendaId, (err, res) => {
         if (err) {
-            console.log("Erro!", err);
+            console.log("Erro, produto nao selecionado na venda!", err);
             result(null, err);
             return;
         }
 
-        if (res.length) {
+        else if (res.length) {
             console.log("Venda encontrada: ", res);
             result(null, res);
             return;
@@ -113,7 +113,7 @@ ProdutoVenda.findById = (produtoId, result) => {
 ProdutoVenda.updateById = (produtoVenda, result) => {
     sql.query("UPDATE produtos SET produtos_vendas SET = ?", produtoVenda, (err, res) => {
         if (err) {
-            console.log("Erro", err);
+            console.log("Erro, nao foi possivel atualizar o produto", err);
             result(null, err);
         }
         else if (res.affectedRows == 0) {
@@ -130,7 +130,7 @@ ProdutoVenda.updateById = (produtoVenda, result) => {
 ProdutoVenda.remove = (produtoVendaId, result) => {
     sql.query("DELETE FROM vendas WHERE idVendas = ?", produtoVendaId, (err, re) => {
         if (err) {
-            console.log("Erro", err);
+            console.log("Erro, nao foi possivel remover a venda", err);
             result(null, err);
         }
         else if (res.affectedRows == 0) {
@@ -147,7 +147,7 @@ ProdutoVenda.removeByPedido = (vendaId, result) => {
     sql.query(`DELETE FROM produtos_vendas WHERE vendas_idVendas = ? `
         + vendaId, (err, res) => {
             if (err) {
-                console.log("Erro", err);
+                console.log("Erro,", err);
                 result(null, err);
             }
             else if (res.affectedRows == 0) {
@@ -164,7 +164,7 @@ ProdutoVenda.removeByProduto = (produtoId, result) => {
     sql.query(`DELETE FROM produtos_vendas WHERE produtos_idProdutos = ? `
         + produtoId, (err, res) => {
             if (err) {
-                console.log("Erro", err);
+                console.log("Erro, produto nao encontrado", err);
                 result(null, err);
             }
             else if (res.affectedRows == 0) {
@@ -180,7 +180,7 @@ ProdutoVenda.removeByProduto = (produtoId, result) => {
 ProdutoVenda.removeAll = (result) => {
     sql.query("DELETE FROM produtos_vendas", (err, re) => {
         if (err) {
-            console.log("Erro", err);
+            console.log("Erro, nao foi possivel remover todos os produtos", err);
             result(err);
         }
         else {

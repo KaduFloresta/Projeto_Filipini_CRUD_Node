@@ -88,7 +88,6 @@ Usuario.getAll = (result) => {
 
 // Atualizar o usuario através do ID
 Usuario.updateById = (usuarioId, usuario, result) => {
-
     this.tipoUser = usuario.tipoUser;
     this.nome = usuario.nome;
     this.email = usuario.email;
