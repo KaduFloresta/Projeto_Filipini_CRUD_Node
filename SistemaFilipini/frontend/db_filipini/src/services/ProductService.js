@@ -1,28 +1,30 @@
 import http from "../http-common";
 
 class ProductService { 
+
+    // [authJwt.verifyToken, authJwt.isAdmin]
     create(data) {
         return http.post("/produto", data);
     }
 
-    // findOne(data) {
-
+    // get(id) {
+    //     return http.get(`/produtos/${id}`);
     // };
 
-    // findAll(data) {
+    getAll() {
+        return http.get("/produtos");
+    }
 
+    // update(id, data) {
+    //     return http.put(`/produtos/${id}`, data);
     // };
 
-    // update(data) {
-
+    // delete(id) {
+    //     return http.delete(`/produtos/${id}`);
     // };
 
-    // delete(data) {
-
-    // };
-
-    // deleteAll(data) {
-
+    // deleteAll() {
+    //     return http.delete("/produtos");
     // };   
 }
 

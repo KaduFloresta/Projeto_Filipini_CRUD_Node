@@ -73,6 +73,15 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ## Done n Missing Activities
 
+### Regras de Negócio
+- [X] usuario.
+- [X] cliente.
+- [X] fornecedor.
+- [X] endereço.
+- [X] produto.
+- [ ] venda.
+- [ ] produto_venda.
+
 ### Desenvolvimento BackEnd MVC
 - [X] usuario.
 - [ ] cliente.
@@ -111,17 +120,17 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Desenvolvimento FrontkEnd - Vue (CRUD)
 **Login**
-- [ ] usuario.
+- [X] usuario.
 
 **Venda de Produtos**
-- [ ] usuario.
+- [ ] tela de Venda.
 
 **Create**
 - [X] usuario.
 - [ ] cliente.
 - [ ] fornecedor.
 - [ ] endereço.
-- [ ] produto.
+- [X] produto.
 
 **Read**
 - [ ] usuario.

@@ -17,43 +17,6 @@
           </b-col>
         </b-row>
 
-        <b-row>
-          <b-col cols="4">
-            <v-text-field
-              label="Login"
-              v-model="login"
-              :rules="loginRules"
-              required
-              error-count="2"
-            >
-            </v-text-field>
-          </b-col>
-          <b-col cols="4">
-            <v-text-field
-              label="Senha"
-              v-model="senha"
-              min="8"
-              counter
-              :rules="passwrodRules"
-              type="password"
-              error-count="2"
-              required
-            >
-            </v-text-field>
-          </b-col>
-          <b-col cols="4">
-            <v-select
-              :items="t_usuario"
-              v-model="tipoUsuario"
-              label="Tipo Usuário"
-              item-text="name2"
-              item-valor="value2"
-              :rules="typeUserRules"
-            >
-            </v-select>
-          </b-col>
-        </b-row>
-
         <h5>Dados Pessoais</h5>
         <hr />
         <b-row>
@@ -185,7 +148,7 @@
 
         <!-- O botão será habilitado quando o formulário estiver OK -->
         <v-btn :disabled="!validForm" @click="adicionarUsuario" color="success"
-          >Criar Usuário</v-btn
+          >Criar</v-btn
         >
       </v-form>
     </v-card-text>
@@ -214,35 +177,21 @@ import UserService from "../../services/UserService.js";
 export default {
   data() {
     return {
+      tab: null,
+      text: 'x.',
       // Export e Regras de cada campo do formulário
       tipoCadastro: "",
       t_cadastro: [
+        { name1: "Cliente", value1: "cliente" },
         { name1: "Colaborador", value1: "colaborador" },
         { name1: "Fornecedor", value1: "fornecedor" },
-        { name1: "Cliente", value1: "cliente" },
       ],
-      typeCreateRules: [(v) => !!v || "Selecione um tipo de cadastro!"],
-
-      login: "",
-      loginRules: [
-        (v) => !!v || "Campo Vazio!",
-        (v) => (v && v.length >= 5) || "Login com pelo menos 5 caracteres!",
-      ],
-
-      senha: "",
-      passwrodRules: [
-        (v) => !!v || "Campo Vazio!",
-        (v) => (v && v.length >= 8) || "Senha com pelo menos 8 caracteres!",
-      ],
-
-      tipoUsuario: "",
-      t_usuario: [
-        { name2: "Administrador", value2: "admin" },
-        { name2: "Funcionário", value2: "funcionario" },
-        { name2: "Fornecedor", value2: "fornecedor" },
-      ],
-      typeUserRules: [(v) => !!v || "Selecione um tipo de usuário!"],
-
+      typeCreateRules: [
+        (v) => !!v || "Selecione um tipo de cadastro!"
+      ],     
+      typeUserRules: [
+        (v) => !!v || "Selecione um tipo de usuário!"
+        ],
       nome: "",
       nomeRules: [
         (v) =>
@@ -349,10 +298,8 @@ export default {
       this.msgErro = "";
       let dados = {
         tipoCadastro: this.tipoCadastro,
-        login: this.login,
-        senha: this.senha,
-        tipoUsuario: this.tipoUsuario,
         nome: this.nome,
+        email: this.email,
         fone: this.fone,
         cpf: this.cpf,
         cnpj: this.cnpj,
@@ -369,6 +316,7 @@ export default {
         })
         .catch((e) => {
           this.msgErro = e;
+          console.log(e);
         });
     },
   },

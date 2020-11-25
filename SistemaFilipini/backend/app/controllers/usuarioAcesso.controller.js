@@ -1,29 +1,26 @@
 const bcrypt = require("bcryptjs");
-const UsuarioModel = require("../models/usuario.model.js");
+const UsuarioAcessoModel = require("../models/usuario.model.js");
 const config = require("../configs/auth.config.js");
 const jwt = require("jsonwebtoken");
 
 exports.signUp = (req, res) => {
-    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
+    if (!req.body.email || !req.body.senha || !req.body.tipoUser) {
         res.status(400).send({
-            message: "Dados NÃO enviados."
+            message: "Email, Senha ou TipoUser NÃO enviados."
         });
     }
     else {
         // 1ª maneira de criar o usuario sem incriptação da senha
-        // const usuario = new UsuarioModel(req.body);
+        // const usuario = new UsuarioAcessoModel(req.body);
 
         // 2ª maneira de criar o usuario
-        const usuario = new UsuarioModel({
-            tipoUser: req.body.tipoUser,
-            nome: req.body.nome,
+        const usuario = new UsuarioAcessoModel({
             email: req.body.email,
-            fone: req.body.fone,
-            cpf: req.body.cpf,
-            cnpj: req.body.cnpj
+            senha: bcrypt.hashSync(req.body.senha, 8),
+            tipoUser: req.body.tipoUser
         });
 
-        UsuarioModel.create(usuario, (err, data) => {
+        UsuarioAcessoModel.create(usuario, (err, data) => {
             if (err) {
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro!"
@@ -37,16 +34,16 @@ exports.signUp = (req, res) => {
 }
 
 exports.signIn = (req, res) => {
-    UsuarioModel.findBylogin(req.body.login, (err, data) => {
+    UsuarioAcessoModel.findByEmail(req.body.email, (err, data) => {
         if (err) {
             if (err = "not_found") {
                 res.status(404).send({
-                    message: "Não há usuário com esse login!."
+                    message: "Não há usuário com esse email!."
                 });
             }
             else {
                 res.status(500).send({
-                    message: "Ocorreu um erro ao buscar o login do usuário."
+                    message: "Ocorreu um erro ao buscar o email do usuário."
                 });
             }
         }
@@ -66,8 +63,8 @@ exports.signIn = (req, res) => {
                 res.status(200).send({
                     accessToken: token,
                     id: data.idUsuarios,
-                    login: data.login,
-                    tipo: data.data
+                    email: data.email,
+                    tipoUser: data.data
                 });
             }
         }
@@ -75,7 +72,7 @@ exports.signIn = (req, res) => {
 }
 
 exports.findOne = (req, res) => {
-    UsuarioModel.findById(req.params.usuarioId, (err, data) => {
+    UsuarioAcessoModel.findById(req.params.usuarioId, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
@@ -94,7 +91,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    UsuarioModel.getAll((err, data) => {
+    UsuarioAcessoModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro!"
@@ -107,22 +104,19 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
+    if (!req.body.email && !req.body.senha && !req.body.tipoUser && !req.body.nome && !req.body.fone && !req.body.cpf) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
-        const usuario = new UsuarioModel({
-            tipoUser: req.body.tipoUser,
-            nome: req.body.nome,
+        const usuario = new UsuarioAcessoModel({
             email: req.body.email,
-            fone: req.body.fone,
-            cpf: req.body.cpf,
-            cnpj: req.body.cnpj
+            senha: req.body.senha,
+            tipoUser: req.body.tipoUser,
         });
 
-        UsuarioModel.updateById(req.params.usuarioId, usuario, (err, data) => {
+        UsuarioAcessoModel.updateById(req.params.usuarioId, usuario, (err, data) => {
             if (err) {
                 if (err.kind == "not_found") {
                     res.status(404).send({
@@ -143,7 +137,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    UsuarioModel.remove(req.params.usuarioId, (err, data) => {
+    UsuarioAcessoModel.remove(req.params.usuarioId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Usuário não encontrado!" });
@@ -159,7 +153,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    UsuarioModel.removeAll((err) => {
+    UsuarioAcessoModel.removeAll((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todos os usuários!" });
         }

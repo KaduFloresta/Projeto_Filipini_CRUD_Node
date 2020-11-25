@@ -2,13 +2,9 @@ const sql = require("./db.js");
 
 // Construtor
 const Usuario = function (usuario) {
-    this.tipoUser = usuario.tipoUser;
-    this.nome = usuario.nome;
     this.email = usuario.email;
-    this.fone = usuario.fone;
-    this.cpf = usuario.cpf;
-    this.cnpj = usuario.cnpj;
-    // endereço: cliente, colaborador, fornecedor
+    this.login = usuario.login;
+    this.senha = usuario.senha;
 }
 
 // Dessa classe vai herdar:
@@ -89,15 +85,12 @@ Usuario.getAll = (result) => {
 // Atualizar o usuario através do ID
 Usuario.updateById = (usuarioId, usuario, result) => {
 
-    this.tipoUser = usuario.tipoUser;
-    this.nome = usuario.nome;
     this.email = usuario.email;
-    this.fone = usuario.fone;
-    this.cpf = usuario.cpf;
-    this.cnpj = usuario.cnpj;
+    this.senha = usuario.senha;
+    this.tipoUser = usuario.tipoUser;
     sql.query(`UPDATE usuarios 
-               SET login = ?, senha = ?, tipoUsuario = ?,  nome = ?, fone = ?,  cpf = ?  
-               WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipoUsuario, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
+               SET email = ?, senha = ?, tipoUsuer = ?  
+               WHERE idUsuarios = ?`, [usuario.email, usuario.senha, usuario.tipoUser, usuarioId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);

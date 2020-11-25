@@ -55,6 +55,7 @@
               v-model="preco"
               v-mask="precoMask"
               :rules="precoRules"
+              type="number"
               required
               error-count="2"
             >
@@ -90,6 +91,7 @@
 import ProductService from "../../services/ProductService.js";
 
 export default {
+  name: "create-product",
   data() {
     return {
       nome: "",
@@ -112,22 +114,21 @@ export default {
     };
   },
   methods: {
-    adicionarProduto: function () {
-      this.msgSucesso = "";
-      this.msgErro = "";
-      let dados = {
+    adicionarProduto() {
+      var produto = {
         nome: this.nome,
         marca: this.marca,
         fornecedor: this.fornecedor,
         validade: this.validade,
         preco: this.preco,
       };
-      ProductService.create(dados)
-        .then((response) => {
-          this.msgSucesso = response.data;
+      ProductService.create(produto)
+        .then(response => {
+          this.msgSucesso = "O Produto " + response.data.nome + " foi criado!";
         })
-        .catch((e) => {
+        .catch(e => {
           this.msgErro = e;
+          console.log(e);
         });
     },
   },
