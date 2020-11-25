@@ -1,14 +1,11 @@
 import http from "../http-common";
 
-class UserService {
-    signup(data) {
-        return http.post("/signup", data);
+class UserAccessService {
+    
+    create(data) {
+        return http.post("/user", data);
     }
-
-    // signin(data) {
-
-    // };
-
+    // committ
     // findOne(data) {
 
     // };
@@ -30,4 +27,4 @@ class UserService {
     // };
 }
 
-export default new UserService();
+export default new UserAccessService();

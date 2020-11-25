@@ -2,11 +2,9 @@ const sql = require("./db.js");
 
 // Construtor
 const Usuario = function (usuario) {
-    this.tipoCadastro = usuario.tipoCadastro;
-    this.login = usuario.login;
-    this.senha = usuario.senha;
-    this.tipoUsuario = usuario.tipoUsuario;
+    this.tipoUser = usuario.tipoUser;
     this.nome = usuario.nome;
+    this.email = usuario.email;
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
     this.cnpj = usuario.cnpj;
@@ -90,13 +88,12 @@ Usuario.getAll = (result) => {
 
 // Atualizar o usuario através do ID
 Usuario.updateById = (usuarioId, usuario, result) => {
-
-    this.login = usuario.login;
-    this.senha = usuario.senha;
-    this.tipoUsuario = usuario.tipoUsuario;
+    this.tipoUser = usuario.tipoUser;
     this.nome = usuario.nome;
+    this.email = usuario.email;
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
+    this.cnpj = usuario.cnpj;
     sql.query(`UPDATE usuarios 
                SET login = ?, senha = ?, tipoUsuario = ?,  nome = ?, fone = ?,  cpf = ?  
                WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipoUsuario, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {

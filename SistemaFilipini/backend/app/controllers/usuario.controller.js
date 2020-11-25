@@ -4,9 +4,9 @@ const config = require("../configs/auth.config.js");
 const jwt = require("jsonwebtoken");
 
 exports.signUp = (req, res) => {
-    if (!req.body.login || !req.body.senha || !req.body.tipo) {
+    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
         res.status(400).send({
-            message: "Login, Senha ou Tipo NÃO enviados."
+            message: "Dados NÃO enviados."
         });
     }
     else {
@@ -15,9 +15,12 @@ exports.signUp = (req, res) => {
 
         // 2ª maneira de criar o usuario
         const usuario = new UsuarioModel({
-            login: req.body.login,
-            senha: bcrypt.hashSync(req.body.senha, 8),
-            tipo: req.body.tipo
+            tipoUser: req.body.tipoUser,
+            nome: req.body.nome,
+            email: req.body.email,
+            fone: req.body.fone,
+            cpf: req.body.cpf,
+            cnpj: req.body.cnpj
         });
 
         UsuarioModel.create(usuario, (err, data) => {
@@ -104,19 +107,19 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.login && !req.body.senha && !req.body.tipo && !req.body.nome && !req.body.fone && !req.body.cpf) {
+    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
         const usuario = new UsuarioModel({
-            login: req.body.login,
-            senha: req.body.senha,
-            tipo: req.body.tipo,
+            tipoUser: req.body.tipoUser,
             nome: req.body.nome,
+            email: req.body.email,
             fone: req.body.fone,
-            cpf: req.body.cpf
+            cpf: req.body.cpf,
+            cnpj: req.body.cnpj
         });
 
         UsuarioModel.updateById(req.params.usuarioId, usuario, (err, data) => {
