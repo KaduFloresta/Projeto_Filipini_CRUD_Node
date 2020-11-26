@@ -4,17 +4,15 @@ module.exports = app => {
     // Padrões do HTTP
 
     // POST = Criar um nova conta
-    app.post("/signup", usuarioController.signUp);
-    // POST = Logar no sistema
-    app.post("/signin", usuarioController.signIn);
+    app.post("/user", usuarioController.create);
     // GET = "Buscando" um usuario no BD pelo ID
-    app.get("/usuarios/:usuarioId", usuarioController.findOne);
+    app.get("/user/:usuarioId", usuarioController.findOne);
     // GET = "Buscando" todos os usuarios no BD
-    app.get("/usuarios", usuarioController.findAll);
+    app.get("/user", usuarioController.findAll);
     // PUT = Alterar os dados do usuario pelo ID 
-    app.put("/usuarios/:usuarioId", usuarioController.update);
+    app.put("/user/:usuarioId", usuarioController.update);
     // DELETE = Deletar o usuario do BD pelo ID
-    app.delete("/usuarios/:usuarioId", usuarioController.delete);
+    app.delete("/user/:usuarioId", usuarioController.delete);
     // DELETE = Deletar todos os usuarios no BD
-    app.delete("/usuarios", usuarioController.deleteAll);
+    app.delete("/user", usuarioController.deleteAll);
 }

@@ -21,20 +21,13 @@ app.get("/", (req, res) => {
     res.json({ message: "Bem vindo ao projeto" });
 });
 
+require("./app/routes/endereco.routes.js")(app);
+// require("./app/routes/produto_venda.routes.js")(app);
 require("./app/routes/produto.routes.js")(app);
 require("./app/routes/usuario.routes.js")(app);
-require("./app/routes/endereco.routes.js")(app);
-require("./app/routes/venda.routes.js")(app);
-require("./app/routes/produto_venda.routes.js")(app);
+require("./app/routes/usuarioLogin.routes.js")(app);
+// require("./app/routes/venda.routes.js")(app);
 
 app.listen(3000, () => {
     console.log("Servidor Rodando!");
 });
-
-
-app.listen(3000, () => {
-    console.log("");
-});
-
-// http://localhost:8080/
-// http://192.168.0.161:8080/

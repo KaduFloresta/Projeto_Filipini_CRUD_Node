@@ -1,9 +1,6 @@
-const bcrypt = require("bcryptjs");
 const UsuarioModel = require("../models/usuario.model.js");
-const config = require("../configs/auth.config.js");
-const jwt = require("jsonwebtoken");
 
-exports.signUp = (req, res) => {
+exports.create = (req, res) => {
     if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
         res.status(400).send({
             message: "Dados NÃO enviados."
@@ -20,13 +17,14 @@ exports.signUp = (req, res) => {
             email: req.body.email,
             fone: req.body.fone,
             cpf: req.body.cpf,
-            cnpj: req.body.cnpj
+            cnpj: req.body.cnpj,
+            Endereco_idEndereco: req.body.Endereco_idEndereco
         });
 
         UsuarioModel.create(usuario, (err, data) => {
             if (err) {
                 res.status(500).send({
-                    message: err.message || "Ocorreu um erro!"
+                    message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
                 });
             }
             else {
@@ -34,44 +32,6 @@ exports.signUp = (req, res) => {
             }
         });
     }
-}
-
-exports.signIn = (req, res) => {
-    UsuarioModel.findBylogin(req.body.login, (err, data) => {
-        if (err) {
-            if (err = "not_found") {
-                res.status(404).send({
-                    message: "Não há usuário com esse login!."
-                });
-            }
-            else {
-                res.status(500).send({
-                    message: "Ocorreu um erro ao buscar o login do usuário."
-                });
-            }
-        }
-        else {
-            let validPassword = bcrypt.compareSync(req.body.senha, data.senha);
-            if (!validPassword) {
-                res.status(401).send({
-                    accessToken: null,
-                    message: "Senha Inválida!"
-                });
-            }
-            else {
-                let token = jwt.sign({ id: data.idUsuarios }, config.secret, {
-                    expiresIn: 86400 // 24 Horas em segundos
-                });
-
-                res.status(200).send({
-                    accessToken: token,
-                    id: data.idUsuarios,
-                    login: data.login,
-                    tipo: data.data
-                });
-            }
-        }
-    });
 }
 
 exports.findOne = (req, res) => {
@@ -119,7 +79,8 @@ exports.update = (req, res) => {
             email: req.body.email,
             fone: req.body.fone,
             cpf: req.body.cpf,
-            cnpj: req.body.cnpj
+            cnpj: req.body.cnpj,
+            Endereco_idEndereco: req.body.Endereco_idEndereco
         });
 
         UsuarioModel.updateById(req.params.usuarioId, usuario, (err, data) => {

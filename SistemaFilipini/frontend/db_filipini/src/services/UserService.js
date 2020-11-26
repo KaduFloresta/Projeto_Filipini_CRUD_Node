@@ -5,9 +5,9 @@ class UserService {
         return http.post("/signup", data);
     }
 
-    // signin(data) {
+    signin(data) {
 
-    // };
+    };
 
     // findOne(data) {
 

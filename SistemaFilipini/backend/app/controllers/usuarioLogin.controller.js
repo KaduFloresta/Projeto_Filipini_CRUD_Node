@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const UsuarioAcessoModel = require("../models/usuario.model.js");
+const UsuarioLoginModel = require("../models/usuarioLogin.model.js");
 const config = require("../configs/auth.config.js");
 const jwt = require("jsonwebtoken");
 
@@ -10,17 +10,13 @@ exports.signUp = (req, res) => {
         });
     }
     else {
-        // 1ª maneira de criar o usuario sem incriptação da senha
-        // const usuario = new UsuarioAcessoModel(req.body);
-
-        // 2ª maneira de criar o usuario
-        const usuario = new UsuarioAcessoModel({
+        const usuario = new UsuarioLoginModel({
             email: req.body.email,
             senha: bcrypt.hashSync(req.body.senha, 8),
             tipoUser: req.body.tipoUser
         });
 
-        UsuarioAcessoModel.create(usuario, (err, data) => {
+        UsuarioLoginModel.create(usuario, (err, data) => {
             if (err) {
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro!"
@@ -34,7 +30,7 @@ exports.signUp = (req, res) => {
 }
 
 exports.signIn = (req, res) => {
-    UsuarioAcessoModel.findByEmail(req.body.email, (err, data) => {
+    UsuarioLoginModel.findByEmail(req.body.email, (err, data) => {
         if (err) {
             if (err = "not_found") {
                 res.status(404).send({
@@ -56,13 +52,13 @@ exports.signIn = (req, res) => {
                 });
             }
             else {
-                let token = jwt.sign({ id: data.idUsuarios }, config.secret, {
+                let token = jwt.sign({ id: data.idUser }, config.secret, {
                     expiresIn: 86400 // 24 Horas em segundos
                 });
 
                 res.status(200).send({
                     accessToken: token,
-                    id: data.idUsuarios,
+                    id: data.idUser,
                     email: data.email,
                     tipoUser: data.data
                 });
@@ -72,16 +68,16 @@ exports.signIn = (req, res) => {
 }
 
 exports.findOne = (req, res) => {
-    UsuarioAcessoModel.findById(req.params.usuarioId, (err, data) => {
+    UsuarioLoginModel.findById(req.params.idUserAcess, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
-                    message: "Usuário não encontrado! ID: " + req.params.usuarioId
+                    message: "Usuário não encontrado! ID: " + req.params.idUserAcess
                 });
             }
             else {
                 res.send(500).send({
-                    message: "Erro ao retornar o usuário com ID: " + req.params.usuarioId
+                    message: "Erro ao retornar o usuário com ID: " + req.params.idUserAcess
                 });
             }
         }
@@ -91,7 +87,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    UsuarioAcessoModel.getAll((err, data) => {
+    UsuarioLoginModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro!"
@@ -104,19 +100,19 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.email && !req.body.senha && !req.body.tipoUser && !req.body.nome && !req.body.fone && !req.body.cpf) {
+    if (!req.body.email && !req.body.senha && !req.body.tipoUser) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
-        const usuario = new UsuarioAcessoModel({
+        const usuario = new UsuarioLoginModel({
             email: req.body.email,
             senha: req.body.senha,
             tipoUser: req.body.tipoUser,
         });
 
-        UsuarioAcessoModel.updateById(req.params.usuarioId, usuario, (err, data) => {
+        UsuarioLoginModel.updateById(req.params.idUserAcess, usuario, (err, data) => {
             if (err) {
                 if (err.kind == "not_found") {
                     res.status(404).send({
@@ -137,7 +133,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    UsuarioAcessoModel.remove(req.params.usuarioId, (err, data) => {
+    UsuarioLoginModel.remove(req.params.idUserAcess, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Usuário não encontrado!" });
@@ -153,7 +149,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    UsuarioAcessoModel.removeAll((err) => {
+    UsuarioLoginModel.removeAll((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todos os usuários!" });
         }
