@@ -3,15 +3,15 @@ module.exports = app => {
 
     // Padrões do HTTP
     // POST = Criando um novo produto no BD
-    app.post("/produtos", produtoController.create);
+    app.post("/produto", produtoController.create);
     // GET = "Buscando" um produto no BD pelo ID
-    app.get("/produtos/:produtoId", produtoController.findOne);
+    app.get("/produto/:produtoId", produtoController.findOne);
     // GET = "Buscando" todos os produtos no BD
-    app.get("/produtos", produtoController.findAll);
+    app.get("/produto", produtoController.findAll);
     // PUT = Alterar os dados do produto pelo ID 
-    app.put("/produtos/:produtoId", produtoController.update);
+    app.put("/produto/:produtoId", produtoController.update);
     // DELETE = Deletar o produto do BD pelo ID
-    app.delete("/produtos/:produtoId", produtoController.delete);
+    app.delete("/produto/:produtoId", produtoController.delete);
     // DELETE = Deletar todos os produtos no BD
-    app.delete("/produtos", produtoController.deleteAll);
+    app.delete("/produto", produtoController.deleteAll);
 }

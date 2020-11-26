@@ -82,12 +82,12 @@ exports.update = (req, res) => {
             if (err) {
                 if (err.kind == "not_found") {
                     res.status(404).send({
-                        message: "Endereco não encontrado!"
+                        message: "Endereço não encontrado!"
                     });
                 }
                 else {
                     res.status(500).send({
-                        message: "Erro ao atualizar o endereco!"
+                        message: "Erro ao atualizar o endereço!"
                     });
                 }
             }

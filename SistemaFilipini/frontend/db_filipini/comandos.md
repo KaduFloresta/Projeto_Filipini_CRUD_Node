@@ -6,6 +6,7 @@ npm init
 npm install --save
 npm install cors jsonwebtoken bcryptjs -save
 npm install express mysql body-parser --save
+npm install jwt-decode --save
 ```
 
 ## Vue Comands

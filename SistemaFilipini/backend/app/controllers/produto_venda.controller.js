@@ -1,15 +1,15 @@
 const Produto_VendaModel = require("../models/produto_Venda.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.produtos_idprodutos && !req.body.vendas_idvendas) {
+    if (!req.body.Produtos_idProdutos && !req.body.Vendas_idVendas) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
         const produtoVenda = new Produto_VendaModel({
-            produtos_idprodutos: req.body.produtos_idprodutos,
-            vendas_idvendas: req.body.vendas_idvendas,
+            Produtos_idProdutos: req.body.Produtos_idProdutos,
+            Vendas_idVendas: req.body.Vendas_idVendas,
         });
 
         Produto_VendaModel.create(produtoVenda, (err, data) => {
@@ -99,15 +99,15 @@ exports.findByProduto = (req, res) => {
 
 // Altera o dados do produto_pedido
 exports.update = (req, res) => {
-    if (!req.body.produtos_idprodutos && !req.body.vendas_idvendas) {
+    if (!req.body.Produtos_idProdutos && !req.body.Vendas_idVendas) {
         res.status(400).send({
             message: "O corpo da requisição está vazio."
         });
     }
     else {
         const produtoVenda = new Produto_VendaModel({
-            produtos_idprodutos: req.body.produtos_idprodutos,
-            vendas_idvendas: req.body.vendas_idvendas,
+            Produtos_idProdutos: req.body.Produtos_idProdutos,
+            Vendas_idVendas: req.body.Vendas_idVendas,
         });
 
         Produto_VendaModel.updateById(req.params.produtoVendaId, produtoVenda, (err, data) => {

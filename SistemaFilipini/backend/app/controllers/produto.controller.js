@@ -1,7 +1,7 @@
 const ProdutoModel = require("../models/produto.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.nome && !req.body.marca && !req.body.fornecedor && !req.body.validade && !req.body.preco) {
+    if (!req.body.nome && !req.body.marca && !req.body.fornecedor && !req.body.validade && !req.body.valor) {
         res.status(400).send({
             message: "Conteúdo da Requisição está Vazio."
         });
@@ -12,7 +12,7 @@ exports.create = (req, res) => {
             marca: req.body.marca,
             fornecedor: req.body.fornecedor,
             validade: req.body.validade,
-            preco: req.body.preco
+            valor: req.body.valor
         });
 
         ProdutoModel.create(produto, (err, data) => {
@@ -61,7 +61,7 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.nome && !req.body.marca && !req.body.fornecedor && !req.body.validade && !req.body.preco) {
+    if (!req.body.nome && !req.body.marca && !req.body.fornecedor && !req.body.validade && !req.body.valor) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
@@ -72,7 +72,7 @@ exports.update = (req, res) => {
             marca: req.body.marca,
             fornecedor: req.body.fornecedor,
             validade: req.body.validade,
-            preco: req.body.preco
+            valor: req.body.valor
         });
 
         ProdutoModel.updateById(req.params.produtoId, produto, (err, data) => {

@@ -8,6 +8,8 @@ const Usuario = function (usuario) {
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
     this.cnpj = usuario.cnpj;
+    this.Endereco_idEndereco = usuario.Endereco_idEndereco;
+
     // endereço: cliente, colaborador, fornecedor
 }
 
@@ -19,50 +21,28 @@ const Usuario = function (usuario) {
 // Cria um novo usuario no BD
 Usuario.create = (usuario, result) => {
     // Implementar criação de um novo usuario no BD
-    sql.query("INSERT INTO usuarios SET ? ", usuario, (err, res) => {
+    sql.query("INSERT INTO user SET ? ", usuario, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(err, null);
             return;
         }
-        else {
-            result(null, "Usuário criado com sucesso!")
-        }
+        console.log("Usuário criado: ", { idUser: res.insertid, ...usuario });
+        result(null, { idUser: res.insertid, ...usuario });
     });
 };
 
-// Seleciona um usuario através do login
-Usuario.findBylogin = (login, result) => {
-    sql.query(`SELECT * FROM usuarios WHERE login = '${login}'`, (err, res) => {
+// Seleciona um endereco através do ID
+Usuario.findById = (usuarioId, result) => {
+    sql.query("SELECT * FROM user WHERE idUser = " + usuarioId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
             return;
         }
-        // Verificar se o Usuario existe
-        else if (res.length) {
-            console.log("Usuario encontrado: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
 
-        else
-            result({ kind: "not_found" }, null)
-
-    });
-};
-
-// Seleciona um usuario através do ID
-Usuario.findById = (idUsuario, result) => {
-    sql.query(`SELECT * FROM usuarios WHERE idUsuarios = '${idUsuario}'`, (err, res) => {
-        if (err) {
-            console.log("Erro!", err);
-            result(null, err);
-            return;
-        }
-        // Verificar se o Usuario existe
-        else if (res.length) {
-            console.log("Usuario encontrado: ", res[0]);
+        if (res.length) {
+            console.log("Usuário encontrado: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -75,13 +55,13 @@ Usuario.findById = (idUsuario, result) => {
 
 // Seleciona todos os usuarios
 Usuario.getAll = (result) => {
-    sql.query("SELECT * FROM usuarios", (err, res) => {
+    sql.query("SELECT * FROM user", (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
             return;
         }
-        console.log("usuarios: ", res);
+        console.log("Usuários: ", res);
         result(null, res);
     });
 };
@@ -94,9 +74,10 @@ Usuario.updateById = (usuarioId, usuario, result) => {
     this.fone = usuario.fone;
     this.cpf = usuario.cpf;
     this.cnpj = usuario.cnpj;
-    sql.query(`UPDATE usuarios 
-               SET login = ?, senha = ?, tipoUsuario = ?,  nome = ?, fone = ?,  cpf = ?  
-               WHERE idUsuarios = ?`, [usuario.login, usuario.senha, usuario.tipoUsuario, usuario.nome, usuario.fone, usuario.cpf, usuarioId], (err, res) => {
+    this.Endereco_idEndereco = usuario.Endereco_idEndereco;
+    sql.query(`UPDATE user
+               SET tipoUser = ?, nome = ?, email = ?,  fone = ?, cpf = ?,  cnpj = ?,  Endereco_idEndereco = ?
+               WHERE idUser = ?`, [usuario.tipoUser, usuario.nome, usuario.email, usuario.fone, usuario.cpf, usuario.cnpj, usuario.Endereco_idEndereco, usuarioId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -105,15 +86,15 @@ Usuario.updateById = (usuarioId, usuario, result) => {
             result({ kind: "not_found" }, null);
         }
         else {
-            console.log("usuario atualizado: ", { idUsuarios: usuarioId, ...usuario });
-            result(null, { idUsuarios: usuarioId, ...usuario });
+            console.log("Usuário atualizado: ", { idUser: usuarioId, ...usuario });
+            result(null, { idUser: usuarioId, ...usuario });
         }
     });
 };
 
 // Remover o usuario através do ID
 Usuario.remove = (usuarioId, result) => {
-    sql.query("DELETE FROM usuarios WHERE idUsuarios = ?", usuarioId, (err, res) => {
+    sql.query("DELETE FROM user WHERE idUser = ?", usuarioId, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -129,7 +110,7 @@ Usuario.remove = (usuarioId, result) => {
 
 // Remover todos os usuarios
 Usuario.removeAll = (result) => {
-    sql.query("DELETE FROM usuarios", (err, res) => {
+    sql.query("DELETE FROM user", (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(err);

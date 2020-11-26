@@ -3,15 +3,15 @@ module.exports = app => {
 
     // Padrões do HTTP
     // POST = Criando um novo endereco no BD
-    app.post("/enderecos", enderecoController.create);
+    app.post("/endereco", enderecoController.create);
     // GET = "Buscando" um endereco no BD pelo ID
-    app.get("/enderecos/:enderecoId", enderecoController.findOne);
+    app.get("/endereco/:enderecoId", enderecoController.findOne);
     // GET = "Buscando" todos os enderecos no BD
-    app.get("/enderecos", enderecoController.findAll);
+    app.get("/endereco", enderecoController.findAll);
     // PUT = Alterar os dados do endereco pelo ID 
-    app.put("/enderecos/:enderecoId", enderecoController.update);
+    app.put("/endereco/:enderecoId", enderecoController.update);
     // DELETE = Deletar o endereco do BD pelo ID
-    app.delete("/enderecos/:enderecoId", enderecoController.delete);
+    app.delete("/endereco/:enderecoId", enderecoController.delete);
     // DELETE = Deletar todos os enderecos no BD
-    app.delete("/enderecos", enderecoController.deleteAll);
+    app.delete("/endereco", enderecoController.deleteAll);
 }

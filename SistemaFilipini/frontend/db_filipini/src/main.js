@@ -12,10 +12,13 @@ Vue.directive("mask", VueMaskDirective);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+var islogged = false;
+
 new Vue({
   router,
   vuetify,
   BootstrapVue,
   IconsPlugin,
+  islogged,
   render: h => h(App)
 }).$mount('#app')

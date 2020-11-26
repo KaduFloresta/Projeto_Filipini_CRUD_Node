@@ -75,8 +75,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Regras de Negócio
 - [X] usuario.
-- [X] cliente.
-- [X] fornecedor.
+- [X] cliente, fornecedor, colaborador.
 - [X] endereço.
 - [X] produto.
 - [ ] venda.
@@ -84,8 +83,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Desenvolvimento BackEnd MVC
 - [X] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
+- [X] cliente, fornecedor, colaborador.
 - [X] endereço.
 - [X] produto.
 - [ ] venda.
@@ -93,26 +91,23 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Desenvolvimento Banco de Dados
 - [X] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
+- [X] cliente, fornecedor, colaborador.
 - [X] endereço.
 - [X] produto.
-- [X] venda.
-- [X] produto_venda.
+- [ ] venda.
+- [ ] produto_venda.
   
 ### Interação com SQL
 - [X] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
+- [X] cliente, fornecedor, colaborador.
 - [X] endereço.
 - [X] produto.
-- [X] venda.
-- [X] produto_venda.
+- [ ] venda.
+- [ ] produto_venda.
 
 ### Teste Postman CRUD
 - [X] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
+- [X] cliente, fornecedor, colaborador.
 - [X] endereço.
 - [X] produto.
 - [ ] venda.
@@ -120,17 +115,17 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Desenvolvimento FrontkEnd - Vue (CRUD)
 **Login**
-- [X] usuario.
+- [ ] usuario.
 
 **Venda de Produtos**
 - [ ] tela de Venda.
 
 **Create**
-- [X] usuario.
+- [ ] usuario.
 - [ ] cliente.
 - [ ] fornecedor.
 - [ ] endereço.
-- [X] produto.
+- [ ] produto.
 
 **Read**
 - [ ] usuario.

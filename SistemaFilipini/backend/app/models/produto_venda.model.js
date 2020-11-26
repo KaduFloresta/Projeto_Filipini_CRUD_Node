@@ -2,29 +2,29 @@ const sql = require("./db.js");
 
 // Construtor
 const ProdutoVenda = function (produtoVenda) {
-    this.produtos_idProdutos = produtoVenda.produtos_idProdutos;
-    this.vendas_idVendas = produtoVenda.vendas_idVendas;
+    this.Produtos_idProdutos = produtoVenda.Produtos_idProdutos;
+    this.Vendas_idVendas = produtoVenda.Vendas_idVendas;
 }
 
 // Cria um nova relação produto_vendapedido no BD
 ProdutoVenda.create = (produtoVenda, result) => {
     // Implementar criação de uma nova venda no BD
-    sql.query("INSERT INTO produtos_vendas SET ? ", produtoPedido, (err, res) => {
+    sql.query("INSERT INTO produtos_vendas SET ? ", produtoVenda, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(err, null);
             return;
         }
         console.log("Venda criada: ", { idVendas: res.insertid, ...pedido });
-        result(null, { idProdutosvendas: res.insertid, ...produtoVenda });
+        result(null, { idProduto_Vendas: res.insertid, ...produtoVenda });
     });
 };
 
 // Seleciona todos os produtos da venda
 ProdutoVenda.getAll = (result) => {
     sql.query(`SELECT * FROM produtos_vendas prods_veds
-               INNER JOIN vendas veds ON (veds.idVendas = prods_veds.vendas_idVendas)
-               INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.produtos_idProdutos)`, (err, res) => {
+               INNER JOIN vendas veds ON (veds.idVendas = prods_veds.Vendas_idVendas)
+               INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.Produtos_idProdutos)`, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -38,9 +38,9 @@ ProdutoVenda.getAll = (result) => {
 // Seleciona um produto dentro da venda através do ID do relacionamento
 ProdutoVenda.findById = (produtoVendaId, result) => {
     sql.query(`SELECT * FROM produtos_vendas prods_veds
-    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.vendas_idVendas)
-    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.produtos_idProdutos)
-    WHERE prods_veds.idProdutos_vendas = ? ` + produtoVendaId, (err, res) => {
+    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.Vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.Produtos_idProdutos)
+    WHERE prods_veds.idProduto_vendas = ? ` + produtoVendaId, (err, res) => {
 
         if (err) {
             console.log("Erro!", err);
@@ -63,8 +63,8 @@ ProdutoVenda.findById = (produtoVendaId, result) => {
 // Seleciona um produto dentro da venda através do ID da venda
 ProdutoVenda.findById = (vendaId, result) => {
     sql.query(`SELECT * FROM produtos_vendas prods_veds
-    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.vendas_idVendas)
-    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.produtos_idProdutos)
+    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.Vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.Produtos_idProdutos)
     WHERE veds.idVendas = ? ` + vendaId, (err, res) => {
         if (err) {
             console.log("Erro, produto nao selecionado na venda!", err);
@@ -87,8 +87,8 @@ ProdutoVenda.findById = (vendaId, result) => {
 // Seleciona um produto dentro da venda através do ID do produto
 ProdutoVenda.findById = (produtoId, result) => {
     sql.query(`SELECT * FROM produtos_vendas prods_veds
-    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.vendas_idVendas)
-    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.produtos_idProdutos)
+    INNER JOIN vendas veds ON (veds.idVendas = prods_veds.Vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idProdutos = prods_veds.Produtos_idProdutos)
     WHERE veds.idrodutos = ? ` + produtoId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
@@ -144,7 +144,7 @@ ProdutoVenda.remove = (produtoVendaId, result) => {
 
 // Remover a venda através do ID
 ProdutoVenda.removeByPedido = (vendaId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE vendas_idVendas = ? `
+    sql.query(`DELETE FROM produtos_vendas WHERE Vendas_idVendas = ? `
         + vendaId, (err, res) => {
             if (err) {
                 console.log("Erro,", err);
@@ -161,7 +161,7 @@ ProdutoVenda.removeByPedido = (vendaId, result) => {
 
 // Remover o produto através do ID
 ProdutoVenda.removeByProduto = (produtoId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE produtos_idProdutos = ? `
+    sql.query(`DELETE FROM produtos_vendas WHERE Produtos_idProdutos = ? `
         + produtoId, (err, res) => {
             if (err) {
                 console.log("Erro, produto nao encontrado", err);
