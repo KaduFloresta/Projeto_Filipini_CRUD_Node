@@ -3,8 +3,12 @@
     <v-flex xs12 sm4 align-center justify-center>
       <v-card>
         <v-card-text class="pt-2">
-          <v-form v-model="formValidado">
-            <v-text-field label="E-mail" v-model="email" required>
+          <v-form v-model="validForm">
+
+            <v-text-field 
+            label="E-mail" 
+            v-model="email" 
+            required>
             </v-text-field>
 
             <v-text-field
@@ -17,19 +21,23 @@
             >
             </v-text-field>
 
-            <v-btn :disabled="!formValido" @click="login" color="primary">
-              Login
+            <v-btn 
+            :disabled="!validForm" 
+            @click="login" 
+            color="primary"
+            >Login
             </v-btn>
           </v-form>
         </v-card-text>
+
         <v-alert
           v-if="msgErro != ''"
-          text
+          text prominent
           type="error"
-          icon="mdi-account-remove"
-        >
+          icon="mdi-account-remove">
           {{ msgErro }}
         </v-alert>
+
       </v-card>
     </v-flex>
   </v-layout>
@@ -44,24 +52,27 @@ export default {
       email: "",
       senha: "",
       msgErro: "",
-      formValido: "",
-      islogged: this.$islogged
+      validForm: ""
     };
   },
 
   methods: {
     login() {
       this.msgErro = "";
+
       let dataUser = {
         email: this.email,
         senha: this.senha,
       };
+
       AuthService.signIn(dataUser)
         .then((response) => {
           AuthService.setUserData(response.data);
+          this.$router.push({name:"/"});
         })
         .catch((e) => {
           this.msgErro = e;
+          console.log(e);
         });
     },
   },

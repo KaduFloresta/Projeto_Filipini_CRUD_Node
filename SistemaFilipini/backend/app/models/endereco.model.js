@@ -19,8 +19,8 @@ Endereco.create = (endereco, result) => {
             result(err, null);
             return;
         }
-        console.log("Enderecos criado: ", { idEndereco: res.insertid, ...endereco });
-        result(null, { idEndereco: res.insertid, ...endereco });
+        console.log("Enderecos criado: ", { idEndereco: res.insertId, ...endereco });
+        result(null, { idEndereco: res.insertId, ...endereco });
     });
 };
 

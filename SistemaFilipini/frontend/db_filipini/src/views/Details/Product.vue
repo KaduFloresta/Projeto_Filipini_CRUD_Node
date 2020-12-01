@@ -1,114 +1,144 @@
 <template>
-  <div class="form-produto mt-3 mx-auto">
-    <p class="headline">Adicionar Produto</p>
+  <v-card>
+    <v-card-text class="pt-2">
+      <v-form v-model="validForm">
+        <h5 class="text-danger">Atualizar Produto</h5>
+        <hr />
+        <b-row>
+          <b-col cols="7">
+            <v-text-field
+              v-model="produto.nome"
+              :rules="[(v) => !!v || 'Nome é um campo obrigatório']"
+              label="Nome"
+              required
+            >
+            </v-text-field>
+          </b-col>
+          <b-col cols="5">
+            <v-text-field
+              v-model="produto.marca"
+              :rules="[(v) => !!v || 'Marca é um campo obrigatório']"
+              label="Marca"
+              required
+            >
+            </v-text-field>
+          </b-col>
+        </b-row>
 
-    <div>
-      <v-form v-model="formValidado">
-        <v-text-field
-          v-model="produto.nome"
-          :rules="[(v) => !!v || 'Nome é um campo obrigatório']"
-          label="Nome"
-          required>
-        </v-text-field>
+        <b-row>
+          <b-col cols="5">
+            <v-text-field
+              v-model="produto.fornecedor"
+              :rules="[(v) => !!v || 'Fornecedor é um campo obrigatório']"
+              label="Fornecedor"
+              required
+            >
+            </v-text-field>
+          </b-col>
+          <b-col cols="4">
+            <v-text-field
+              v-model="produto.validade"
+              :rules="[(v) => !!v || 'Validade é um campo obrigatório']"
+              v-mask="validadeMask"
+              label="Validade"
+              required
+            >
+            </v-text-field>
+          </b-col>
+          <b-col cols="3">
+            <v-text-field
+              v-model="produto.valor"
+              :rules="[(v) => !!v || 'Preço é um campo obrigatório']"
+              label="Valor"
+              type="number"
+              required
+            >
+            </v-text-field>
+          </b-col>
+        </b-row>
 
-        <v-text-field
-          v-model="produto.marca"
-          :rules="[(v) => !!v || 'Marca é um campo obrigatório']"
-          label="Nome"
-          required>
-        </v-text-field>
+        <div class="mx-auto" style="width: 380px">          
+          <v-btn
+            color="success"
+            small
+            class="mr-2"
+            @click="voltar()"
+            width="150"
+            height="40px"
+            >Voltar
+          </v-btn>
+
+          <!-- O botão será habilitado quando o formulário estiver OK -->
+          <v-btn
+            color="warning"
+            small
+            @click="atualizarProduto"
+            width="150"
+            height="40px"
+            >Atualizar
+          </v-btn>
+        </div>
         
-        <v-text-field
-          v-model="produto.fornecedor"
-          :rules="[(v) => !!v || 'Fornecedor é um campo obrigatório']"
-          label="Nome"
-          required>
-        </v-text-field>
-
-        <v-text-field
-          v-model="produto.validade"
-          :rules="[(v) => !!v || 'Validade é um campo obrigatório']"
-          label="Nome"
-          required>
-        </v-text-field>
-
-        <v-text-field
-          v-model="produto.preco"
-          :rules="[(v) => !!v || 'Preço é um campo obrigatório']"
-          type="number"
-          label="Valor"
-          required>
-        </v-text-field>
-
-        <v-divider class="my-5"></v-divider>
-
-        <v-btn color="error" small class="mr-2" @click="deletarProduto">
-            Excluir
-        </v-btn>
-
-        <v-btn color="success" small @click="atualizarProduto">
-            Atualizar 
-        </v-btn>
-
-        <v-alert text
-            v-if="msgSucesso != ''"
-            color="teal"
-            icon="mdi-account-check">
-            {{ msgSucesso }}
-        </v-alert>
-
-        <v-alert v-if="msgErro != ''" text type="error" icon="mdi-account-remove">
-            {{ msgErro }}
-        </v-alert>
-
       </v-form>
-    </div>
-  </div>
-    
+    </v-card-text>
+
+    <v-alert
+      v-if="msgSucesso != ''"
+      color="green"
+      icon="mdi-account-check"
+      type="success"
+      >{{ msgSucesso }}
+    </v-alert>
+
+    <v-alert 
+      v-if="msgErro != ''" 
+      type="error" 
+      icon="mdi-alert-circle"
+      >{{ msgErro }}
+    </v-alert>
+  </v-card>
 </template>
 
 <script>
 import ProductService from "../../services/ProductService.js";
+
 export default {
-    data() {
-        return {
-            produto: null,
-            msgSucesso: "",
-            msgErro: ""
-        }
+  data() {
+    return {
+      produto: null,
+      msgSucesso: "",
+      msgErro: "",
+      validadeMask: "##/##/####",
+    };
+  },
+
+  mounted() {
+    this.buscarProduto(this.$route.params.id);
+  },
+
+  methods: {
+    buscarProduto(id) {
+      ProductService.get(id)
+        .then((response) => {
+          this.produto = response.data;
+        })
+        .catch((e) => console.log(e));
     },
-    mounted(){
-        this.buscarProduto(this.$route.params.id);
+    atualizarProduto() {
+      ProductService.update(this.produto.idProduto, this.produto)
+        .then((response) => {
+          this.msgSucesso = "O Produto " + response.data.nome + " foi atualizado!";
+          this.$router.push({ name: "ListProduct" });
+        })
+        .catch((e) => {
+          this.msgErro = e;
+          console.log(e);
+        });
     },
-    methods: {
-        buscarProduto(id){
-            ProductService.get(id)
-            .then(response => {
-                this.produto = response.data;
-            })
-            .catch(e => console.log(e));
-        },
-        atualizarProduto(){
-            ProductService.update(this.produto.id, this.produto)
-            .then(response => {
-                this.msgSucesso = response.data;
-                this.$router.push({name: "ListProducts"});
-            })
-            .catch(e => {
-                this.msgErro = e;
-                console.log(e);
-            });
-        },
-        deletarProduto(){
-            ProductService.delete(this.$route.params.id)
-            .then((response) => {
-                console.log(response);
-                this.$router.push({name: "ListProducts"});
-            })
-            .catch(e => {
-                console.log(e);
-            })
-        },
+
+    voltar() {
+      this.$router.push('ListProduct')
     }
-    
-}
+  },
+};
+</script>

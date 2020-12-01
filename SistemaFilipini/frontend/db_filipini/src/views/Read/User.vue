@@ -2,11 +2,11 @@
   <v-card>
     <v-card-text class="mx-auto mt2">
       <v-form>
-        <h5 class="text-danger">Lista de Produtos</h5>
+        <h5 class="text-danger">Lista de Usuários</h5>
         <hr />
         <v-data-table
           :headers="cabecalho"
-          :items="produtos"
+          :items="usuarios"
           disable-pagination
           :hide-default-footer="true"
         >
@@ -15,7 +15,7 @@
               color="warning"
               small
               class="mr-2"
-              @click="editarProduto(item.id)"
+              @click="editarUsuario(item.id)"
               ><v-icon small class="mr-1">mdi-pencil</v-icon>Atualizar
             </v-btn>
 
@@ -23,7 +23,7 @@
               color="error"
               small
               class="mr-2"
-              @click="deletarProduto(item.id)"
+              @click="deletarUsuario(item.id)"
               width="120"
               ><v-icon small class="mr-1">mdi-delete</v-icon>Excluir
             </v-btn>
@@ -49,17 +49,23 @@
 </template>
 
 <script>
-import ProductService from "../../services/ProductService.js";
+import UserService from "../../services/UserService.js";
 
 export default {
   data() {
     return {
-      name: "ListUser",
+      name: "ListProduct",
       msgSucesso: "",
       msgErro: "",
 
-      produtos: [],
+      usuarios: [],
       cabecalho: [
+        {
+          text: "Tipo Usuário",
+          align: "center",
+          sortable: true,
+          value: "tipoUser",
+        },
         {
           text: "Nome",
           align: "center",
@@ -67,28 +73,16 @@ export default {
           value: "nome",
         },
         {
-          text: "Marca",
+          text: "CPF",
           align: "center",
           sortable: true,
-          value: "marca",
+          value: "cpf",
         },
         {
-          text: "Fornecedor",
+          text: "CNPJ",
           align: "center",
           sortable: true,
-          value: "fornecedor",
-        },
-        {
-          text: "Validade",
-          align: "center",
-          sortable: true,
-          value: "validade",
-        },
-        {
-          text: "Preço",
-          align: "center",
-          sortable: true,
-          value: "valor",
+          value: "cnpj",
         },
         {
           text: "Ação",
@@ -101,36 +95,43 @@ export default {
   },
 
   mounted() {
-    this.buscarProduto();
+    this.buscarUsuario();
   },
 
   methods: {
-    buscarProduto() {
-      ProductService.getAll()
+    buscarUsuario() {
+      UserService.getAll()
         .then((response) => {
-          this.produtos = response.data.map(this.formatarProduto);
+          this.usuarios = response.data.map(this.formatarUsuario);
         })
         .catch((e) => console.log(e));
     },
 
-    formatarProduto(produto) {
+    formatarUsuario(user) {
       return {
-        id: produto.idProduto,
-        nome: produto.nome,
-        marca: produto.marca,
-        fornecedor: produto.fornecedor,
-        validade: produto.validade,
-        valor: produto.valor,
+        id: user.idUser,
+        tipoUser: user.tipoUser,
+        nome: user.nome,
+        email: user.email,
+        fone: user.fone,
+        cpf: user.cpf,
+        cnpj: user.cnpj,
+        rua: user.rua,
+        numero: user.numero,
+        bairro: user.bairro,
+        cidade: user.cidade,
+        estado: user.estado,
+        cep: user.cep,
       };
     },
 
-    deletarProduto(id) {
-      ProductService.delete(id)
+    deletarUsuario(id) {
+      UserService.delete(id)
         .then((response) => {
-          if (confirm("Tem certeza que deseja excluir esse produto?")) {
+          if (confirm("Tem certeza que deseja excluir esse usuário?")) {
             console.log(response);
-            this.buscarProduto();
-            this.msgSucesso = "O Produto foi deletado com sucesso!";
+            this.buscarUsuario();
+            this.msgSucesso = "O Usuário foi deletado com sucesso!";
           }
         })
         .catch((e) => {
@@ -139,8 +140,8 @@ export default {
         });
     },
 
-    editarProduto(id) {
-      this.$router.push({ name: "DetailProduct", params: { id: id } });
+    editarUsuario(id) {
+      this.$router.push({ name: "DetailUser", params: { id: id } });
     },
   },
 };
