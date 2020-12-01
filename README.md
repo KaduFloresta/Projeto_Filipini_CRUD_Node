@@ -74,80 +74,82 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 ## Done n Missing Activities
 
 ### Regras de Negócio
-- [X] usuario.
-- [X] cliente, fornecedor, colaborador.
-- [X] endereço.
+- [X] usuario login.
+- [X] user - cliente, fornecedor, colaborador.
+- [X] user - endereço.
 - [X] produto.
 - [ ] venda.
 - [ ] produto_venda.
 
 ### Desenvolvimento BackEnd MVC
-- [X] usuario.
-- [X] cliente, fornecedor, colaborador.
-- [X] endereço.
+- [X] usuario login.
+- [X] user - cliente, fornecedor, colaborador.
+- [X] user - endereço.
 - [X] produto.
 - [ ] venda.
 - [ ] produto_venda.
 
 ### Desenvolvimento Banco de Dados
-- [X] usuario.
-- [X] cliente, fornecedor, colaborador.
-- [X] endereço.
+- [X] usuario login.
+- [X] user - cliente, fornecedor, colaborador.
+- [X] user - endereço.
 - [X] produto.
-- [ ] venda.
-- [ ] produto_venda.
+- [X] venda.
+- [X] produto_venda.
   
 ### Interação com SQL
-- [X] usuario.
-- [X] cliente, fornecedor, colaborador.
-- [X] endereço.
+- [X] usuario login.
+- [X] user - cliente, fornecedor, colaborador.
+- [X] user - endereço.
 - [X] produto.
 - [ ] venda.
 - [ ] produto_venda.
 
 ### Teste Postman CRUD
-- [X] usuario.
-- [X] cliente, fornecedor, colaborador.
-- [X] endereço.
+- [X] usuario login.
+- [X] user - cliente, fornecedor, colaborador.
+- [X] user - endereço.
 - [X] produto.
 - [ ] venda.
 - [ ] produto_venda.
 
 ### Desenvolvimento FrontkEnd - Vue (CRUD)
 **Login**
-- [ ] usuario.
+- [ ] usuario login.
 
 **Venda de Produtos**
 - [ ] tela de Venda.
 
 **Create**
-- [ ] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
-- [ ] endereço.
-- [ ] produto.
-
+- [X] usuario login.
+- [X] user - cliente + endereço.
+- [X] user - fornecedor + endereço.
+- [X] user - colaborador + endereço.
+- [X] produto.
+- [ ] venda.
+- 
 **Read**
-- [ ] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
-- [ ] endereço.
-- [ ] produto.
+- [X] usuario login.
+- [X] user - cliente + endereço.
+- [X] user - fornecedor + endereço.
+- [X] user - colaborador + endereço.
+- [X] produto.
 - [ ] venda.
 
 **Update**
-- [ ] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
-- [ ] endereço.
-- [ ] produto.
+- [X] usuario login.
+- [X] user - cliente + endereço.
+- [X] user - fornecedor + endereço.
+- [X] user - colaborador + endereço.
+- [X] produto.
+- [ ] venda.
 
 **Delete**
-- [ ] usuario.
-- [ ] cliente.
-- [ ] fornecedor.
-- [ ] endereço.
-- [ ] produto.
+- [X] usuario login.
+- [X] user - cliente + endereço.
+- [X] user - fornecedor + endereço.
+- [X] user - colaborador + endereço.
+- [X] produto.
 - [ ] venda.
 
 ---

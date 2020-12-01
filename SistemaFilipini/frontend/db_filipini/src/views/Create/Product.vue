@@ -2,11 +2,12 @@
   <v-card>
     <v-card-text class="pt-2">
       <v-form v-model="validForm">
-        <h5>Dados do Produto</h5>
+        <h5 class="text-danger">Dados do Produto</h5>
         <hr />
         <b-row>
           <b-col cols="7">
             <v-text-field
+              class="py-0"
               label="Nome do Produto"
               v-model="nome"
               :rules="nomeRules"
@@ -17,6 +18,7 @@
           </b-col>
           <b-col cols="5">
             <v-text-field
+              class="py-0"
               label="Marca"
               v-model="marca"
               :rules="marcaRules"
@@ -30,6 +32,7 @@
         <b-row>
           <b-col cols="5">
             <v-text-field
+              class="py-0"
               label="Fornecedor"
               v-model="fornecedor"
               :rules="fornecedorRules"
@@ -40,6 +43,7 @@
           </b-col>
           <b-col cols="4">
             <v-text-field
+              class="py-0"
               label="Validade"
               v-model="validade"
               v-mask="validadeMask"
@@ -51,10 +55,11 @@
           </b-col>
           <b-col cols="3">
             <v-text-field
+              class="py-0"
               label="Preço"
-              v-model="preco"
-              v-mask="precoMask"
-              :rules="precoRules"
+              v-model="valor"
+              v-mask="valorMask"
+              :rules="valorRules"
               type="number"
               required
               error-count="2"
@@ -63,18 +68,22 @@
           </b-col>
         </b-row>
 
-        <hr />
+        <div class="mx-auto" style="width: 150px">
         <!-- O botão será habilitado quando o formulário estiver OK -->
-        <v-btn :disabled="!validForm" @click="adicionarProduto" color="success"
-          >Criar Produto</v-btn
-        >
+          <v-btn 
+            :disabled="!validForm" 
+            @click="adicionarProduto" 
+            color="success"
+              >Criar Produto
+          </v-btn>
+        </div>
       </v-form>
     </v-card-text>
 
     <v-alert
       v-if="msgSucesso != ''"
       color="green"
-      icon="$mdiAccount"
+      icon="mdi-account-check"
       type="success"
       >{{ msgSucesso }}
     </v-alert>
@@ -82,7 +91,8 @@
     <v-alert 
       v-if="msgErro != ''" 
       type="error"
-      >{{ msgErro }} 
+      icon="mdi-alert-circle"
+      >{{ msgErro }}
     </v-alert>
   </v-card>
 </template>
@@ -95,38 +105,47 @@ export default {
   data() {
     return {
       nome: "",
-      nomeRules: [        
+      nomeRules: [   
+        (v) => !!v || "Descreva o produto!",     
       ],
       marca: "",
-      marcaRules: [        
+      marcaRules: [   
+        (v) => !!v || "Digite a marca do produto!",     
       ],
       fornecedor: "",
-      fornecedorRules: [        
+      fornecedorRules: [  
+        (v) => !!v || "Digite o fornecedor do produto!",       
       ],
       validade: "",
       validadeMask: "##/##/####",
-      validadeRules: [        
+      validadeRules: [   
+        (v) => !!v || "Digite a validade do produto!",      
       ],
-      preco: "",
-      precoMask: "R$ ##,##",
-      precoRules: [        
+      valor: "",
+      valorRules: [   
+        (v) => !!v || "Digite o valor do produto!",      
       ],
+      validForm: "",
+      msgSucesso: "",
+      msgErro: "",
     };
   },
   methods: {
     adicionarProduto() {
-      var produto = {
+      this.msgSucesso = "";
+      this.msgErro = "";
+      let dados = {
         nome: this.nome,
         marca: this.marca,
         fornecedor: this.fornecedor,
         validade: this.validade,
-        preco: this.preco,
+        valor: this.valor,
       };
-      ProductService.create(produto)
-        .then(response => {
+      ProductService.create(dados)
+        .then((response) => {
           this.msgSucesso = "O Produto " + response.data.nome + " foi criado!";
-        })
-        .catch(e => {
+         })
+        .catch((e) => {
           this.msgErro = e;
           console.log(e);
         });

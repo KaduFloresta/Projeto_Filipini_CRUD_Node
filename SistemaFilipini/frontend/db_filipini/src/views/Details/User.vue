@@ -2,18 +2,18 @@
   <v-card>
     <v-card-text class="py-0">
       <v-form v-model="validForm">
-        <h5 class="text-danger">Cadastro do Usuário</h5>
+        <h5 class="text-danger">Alteração Usuário</h5>
         <hr />
         <b-row>
           <b-col cols="4">
             <v-select
               class="py-0"
               :items="t_cadastro"
-              v-model="tipoUser"
+              v-model="usuario.tipoUser"
               label="Tipo Cadastro"
               item-text="name1"
               item-valor="value1"
-              :rules="typeCreateRules"
+              :rules="[(v) => !!v || 'Tipo de Cadastro é um campo obrigatório']"
               width="500px"
             >
             </v-select>
@@ -27,8 +27,14 @@
             <v-text-field
               class="py-0"
               label="Nome"
-              v-model="nome"
-              :rules="nomeRules"
+              v-model="usuario.nome"
+              :rules="[
+                (v) => !!v || 'Nome Completo é um campo obrigatório',
+                (v) =>
+                  /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
+                    v
+                  ) || 'Digite o nome completo da rua!',
+              ]"
               required
               error-count="2"
             >
@@ -38,9 +44,9 @@
             <v-text-field
               class="py-0"
               label="Fone"
-              v-model="fone"
+              v-model="usuario.fone"
               v-mask="foneMask"
-              :rules="foneRules"
+              :rules="[(v) => !!v || 'Fone é um campo obrigatório']"
               required
               error-count="2"
             >
@@ -53,8 +59,11 @@
             <v-text-field
               class="py-0"
               label="E-mail"
-              v-model="email"
-              :rules="emailRules"
+              v-model="usuario.email"
+              :rules="[
+                (v) => !!v || 'Email é um campo obrigatório',
+                (v) => /.+@.+/.test(v) || 'E-mail é inválido',
+              ]"
               required
               error-count="2"
             >
@@ -64,25 +73,25 @@
             <v-text-field
               class="py-0"
               label="CPF"
-              v-model="cpf"
+              v-model="usuario.cpf"
               v-mask="cpfMask"
-              :rules="cpfRules"
+              :rules="[(v) => !!v || 'CPF é um campo obrigatório']"
+              :disabled="tipoUser != 'Fornecedor'"
               required
               error-count="2"
             >
             </v-text-field>
           </b-col>
-
-      <!-- :disabled="tipoUser != 'Fornecedor'"
-          :disabled="tipoUser == 'Fornecedor'" -->
-
+          <!-- 
+           -->
           <b-col cols="5">
             <v-text-field
               class="py-0"
               label="CNPJ"
-              v-model="cnpj"
+              v-model="usuario.cnpj"
+              :disabled="tipoUser == 'Fornecedor'"
               v-mask="cnpjMask"
-              :rules="cnpjRules"
+              :rules="[(v) => !!v || 'CNPJ é um campo obrigatório']"
               required
               error-count="2"
             >
@@ -98,12 +107,12 @@
               <v-text-field
                 class="py-0"
                 label="CEP"
-                v-model="cep"
-                :rules="cepRules"
+                v-model="usuario.cep"
+                :rules="[(v) => !!v || 'CEP é um campo obrigatório']"
                 v-mask="cepMask"
-                v-on:change = "loadCep"
+                v-on:change="loadCep"
                 required
-                error-count="2"               
+                error-count="2"
               >
               </v-text-field>
             </b-col>
@@ -112,8 +121,14 @@
               <v-text-field
                 class="py-0"
                 label="Rua"
-                v-model="rua"
-                :rules="ruaRules"
+                v-model="usuario.rua"
+                :rules="[
+                  (v) => !!v || 'Rua é um campo obrigatório',
+                  (v) =>
+                    /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
+                      v
+                    ) || 'Digite o nome completo da rua!',
+                ]"
                 required
                 error-count="2"
               >
@@ -124,9 +139,9 @@
               <v-text-field
                 class="py-0"
                 label="Número"
-                v-model="numero"
+                v-model="usuario.numero"
                 v-mask="numeroMask"
-                :rules="numeroRules"
+                :rules="[(v) => !!v || 'Número é um campo obrigatório']"
                 required
                 error-count="2"
               >
@@ -137,8 +152,8 @@
               <v-text-field
                 class="py-0"
                 label="Bairro"
-                v-model="bairro"
-                :rules="bairroRules"
+                v-model="usuario.bairro"
+                :rules="[(v) => !!v || 'Bairro é um campo obrigatório']"
                 required
                 error-count="2"
               >
@@ -149,8 +164,8 @@
               <v-text-field
                 class="py-0"
                 label="Cidade"
-                v-model="cidade"
-                :rules="cidadeRules"
+                v-model="usuario.cidade"
+                :rules="[(v) => !!v || 'Cidade é um campo obrigatório']"
                 required
                 error-count="2"
               >
@@ -162,8 +177,8 @@
                 class="py-0"
                 label="Estado"
                 :items="t_estado"
-                v-model="estado"
-                :rules="estadoRules"
+                v-model="usuario.estado"
+                :rules="[(v) => !!v || 'Estado é um campo obrigatório']"
                 item-text="name3"
                 item-valor="value3"
               >
@@ -171,16 +186,27 @@
             </b-col>
           </b-row>
         </form>
-        <div class="mx-auto" style="width: 120px">
+
+        <div class="mx-auto" style="width: 380px">
+          <v-btn 
+            color="success"
+            small
+            class="m-3"
+            @click="voltar()"
+            width="150"
+            height="40px"
+            >Voltar
+          </v-btn>
+
           <!-- O botão será habilitado quando o formulário estiver OK -->
           <v-btn
-            class="mb-5"
-            :disabled="!validForm"
-            @click="adicionarUsuario"
-            color="success"
-            width="120px"
-            >Criar</v-btn
-          >
+            color="warning"
+            small
+            @click="atualizarUsuario"
+            width="150"
+            height="40px"
+            >Atualizar
+          </v-btn>
         </div>
       </v-form>
     </v-card-text>
@@ -193,28 +219,20 @@
       >{{ msgSucesso }}
     </v-alert>
 
-    <v-alert 
-      v-if="msgErro != ''" 
-      type="error" 
-      icon="mdi-alert-circle"
+    <v-alert v-if="msgErro != ''" type="error" icon="mdi-alert-circle"
       >{{ msgErro }}
     </v-alert>
-    
   </v-card>
 </template>
 
 <script>
-import Axios from 'axios';
+import Axios from "axios";
 import UserService from "../../services/UserService.js";
 
 export default {
-  name: "User",
-
   data() {
     return {
-      // EXPORT USER LOGIN
-      // Export e Regras de cada campo do formulário
-      validForm: "",
+      usuario: null,
       msgSucesso: "",
       msgErro: "",
 
@@ -224,65 +242,18 @@ export default {
         { name1: "Colaborador", value1: "colaborador" },
         { name1: "Fornecedor", value1: "fornecedor" },
       ],
-
-      typeCreateRules: [(v) => !!v || "Selecione um tipo de cadastro!"],
-
       nome: "",
-      nomeRules: [
-        (v) => /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
-            v
-          ) || "Digite o nome completo!",
-      ],
-
       fone: "",
       foneMask: "(##) #####-####",
-      foneRules: [
-        // || "Telefone é inválido"],
-      ],
-
       email: "",
-      emailRules: [
-        (v) => !!v || "E-mail precisa ser preenchido",
-        (v) => /.+@.+/.test(v) || "E-mail é inválido",
-      ],
-
       cpf: "",
       cpfMask: "###.###.###-##",
-      cpfRules: [
-        // || "CPF é inválido"],
-      ],
-
       cnpj: "",
       cnpjMask: "##.###.###/####-##",
-      cnpjRules: [
-        // || "CNPJ é inválido"],
-      ],
-
       rua: "",
-      ruaRules: [
-        (v) =>
-          /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
-            v
-          ) || "Digite o nome completo da rua!",
-      ],
-
       numero: "",
-      numeroMask: "####",
-      numeroRules: [
-        // (v) => /\D/g.test(v) || "Somente números!"
-          ],
-
-          bairro: "",
-      bairroRules: [
-        (v) =>
-          /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
-            v
-          ) || "Digite o nome do bairro!",
-      ],
-
+      bairro: "",
       cidade: "",
-      cidadeRules: [(v) => !!v || "Digite o nome da cidade!"],
-
       estado: "",
       t_estado: [
         { name3: "AC", value3: "Acre" },
@@ -313,42 +284,29 @@ export default {
         { name3: "SE", value3: "Sergipe" },
         { name3: "TO", value3: "Tocantins" },
       ],
-      estadoRules: [(v) => !!v || "Selecione o estado!"],
-
       cep: "",
       cepMask: "#####-###",
-      cepRules: [
-        // Nova variável "cep" somente com dígitos.
-        // (v) => /\D/g.test(v) || "Somente números!",
-        // Verifica se campo cep possui valor informado.
-        // (v) => !!v || "Campo vazio!",
-        // Expressão regular para validar o CEP.
-        // (v) => /^[0-9]{8}$/.test(v) || "Somente números!",
-      ],
     };
   },
 
+  mounted() {
+    this.buscarUsuario(this.$route.params.id);
+  },
+
   methods: {
-    adicionarUsuario: function () {
-      this.msgSucesso = "";
-      this.msgErro = "";
-      let dados = {
-        tipoUser: this.tipoUser,
-        nome: this.nome,
-        email: this.email,
-        fone: this.fone,
-        cpf: this.cpf,
-        cnpj: this.cnpj,
-        rua: this.rua,
-        numero: this.numero,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        estado: this.estado,
-        cep: this.cep,
-      };
-      UserService.create(dados)
+    buscarUsuario(id) {
+      UserService.get(id)
         .then((response) => {
-          this.msgSucesso = "O Usuário " + response.data.nome + "foi criado com sucesso";
+          this.usuario = response.data;
+        })
+        .catch((e) => console.log(e));
+    },
+    atualizarUsuario() {
+      UserService.update(this.usuario.idUser, this.usuario)
+        .then((response) => {
+          this.msgSucesso =
+            "O usuário " + response.data.nome + " foi atualizado!";
+          this.$router.push({ name: "ListUser" });
         })
         .catch((e) => {
           this.msgErro = e;
@@ -356,15 +314,20 @@ export default {
         });
     },
 
-    loadCep: function() {
-      const url = 'https://viacep.com.br/ws/' + this.cep.trim().replace(/[^0-9]/g,'') + '/json';
-      Axios.get(url).then(function(response){
-        this.rua = response.data.logradouro;
-        this.bairro = response.data.bairro;
-        this.cidade = response.data.localidade;
-        this.estado = response.data.uf;
-      }.bind(this))
-    }
+    voltar() {
+      this.$router.push("ListUser");
+    },
+
+    loadCep: function () {
+      const url = "https://viacep.com.br/ws/" + this.cep.trim().replace(/[^0-9]/g, "") + "/json";
+      Axios.get(url).then( function (response) {
+          this.rua = response.data.logradouro;
+          this.bairro = response.data.bairro;
+          this.cidade = response.data.localidade;
+          this.estado = response.data.uf;
+        }.bind(this)
+      );
+    },
   },
 };
 </script>

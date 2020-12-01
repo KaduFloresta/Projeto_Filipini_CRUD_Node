@@ -60,7 +60,7 @@ exports.signIn = (req, res) => {
                     accessToken: token,
                     id: data.idUser,
                     email: data.email,
-                    tipoUser: data.data
+                    tipoUser: data.tipoUser
                 });
             }
         }
