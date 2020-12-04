@@ -9,6 +9,7 @@ exports.create = (req, res) => {
     else {
         const venda = new VendaModel({
             formaPgto: req.body.formaPgto,
+            User_idUser: req.body.User_idUser
         });
 
         VendaModel.create(venda, (err, data) => {
@@ -56,39 +57,8 @@ exports.findAll = (req, res) => {
 };
 
 
-exports.update = (req, res) => {
-    if (!req.body.formaPgto) {
-        res.status(400).send({
-            message: "Conteúdo do corpo da requisição está vazio."
-        });
-    }
-    else {
-        const venda = new VendaModel({
-            formaPgto: req.body.formaPgto
-        });
-
-        VendaModel.updateById(req.params.vendaId, venda, (err, data) => {
-            if (err) {
-                if (err.kind == "not_found") {
-                    res.status(404).send({
-                        message: "Venda não encontrada!"
-                    });
-                }
-                else {
-                    res.status(500).send({
-                        message: "Erro ao atualizar a venda!"
-                    });
-                }
-            }
-            else {
-                res.send(data);
-            }
-        });
-    }
-};
-
-exports.delete = (req, res) => {
-    VendaModel.remove.apply(req.params.vendaId, (res, data) => {
+exports.deleteById = (req, res) => {
+    VendaModel.removeById(req.params.vendaId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Venda não encontrada!" });
@@ -98,18 +68,7 @@ exports.delete = (req, res) => {
             }
         }
         else {
-            res.send({ message: "Venda deletado com sucesso!" });
-        }
-    });
-};
-
-exports.deleteAll = (req, res) => {
-    VendaModel.remove((err) => {
-        if (err) {
-            res.status(500).send({ message: "Erro ao deletar todas as vendas" });
-        }
-        else {
-            res.send({ message: "Todas as vendas deletadas com sucesso!" });
+            res.send({ message: "Venda deletada com sucesso!" });
         }
     });
 };
