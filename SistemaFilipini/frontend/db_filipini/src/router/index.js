@@ -13,7 +13,7 @@ const routes = [{
   component: LoggedLayout,
   children: [{
     // Homepage
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: Home
   },
@@ -22,12 +22,6 @@ const routes = [{
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')
-  },
-  // Login
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import("../views/Login.vue")
   },
   // Create
   {
@@ -44,6 +38,11 @@ const routes = [{
     path: '/createlogin',
     name: 'CreateLogin',
     component: () => import("../views/Create/UserLogin.vue")
+  },
+  {
+    path: '/createshop',
+    name: 'CreateShop',
+    component: () => import("../views/Create/Shop.vue")
   },
   // Read
   {
@@ -79,6 +78,7 @@ const routes = [{
   },
   ]
 },
+// Login
 {
   path: '/login',
   redirect: 'Login',
@@ -86,8 +86,7 @@ const routes = [{
   children: [{
     path: '/login',
     name: 'Login',
-    component: () =>
-      import("../views/Login.vue")
+    component: () => import("../views/Login.vue")
   }]
 }
 ]

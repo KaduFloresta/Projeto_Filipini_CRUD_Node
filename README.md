@@ -152,4 +152,14 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] produto.
 - [ ] venda.
 
+**ISSUES**
+- [X] Login - HomePage.
+- [ ] Fixar os caminhos das pages.
+- [X] Interalar entre CPF e CNPJ.
+- [X] Update endereço do User.
+- [X] Tela sem ABA qdo volta do Update.
+- [X] BuscaCEP do Update endereço User.
+- [X] Update UserLogin.
+- [ ] .
+
 ---
