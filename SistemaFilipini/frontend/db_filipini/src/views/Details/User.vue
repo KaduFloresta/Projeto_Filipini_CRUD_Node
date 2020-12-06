@@ -29,12 +29,8 @@
               label="Nome"
               v-model="usuario.nome"
               :rules="[
-                (v) => !!v || 'Nome Completo é um campo obrigatório',
-                (v) =>
-                  /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
-                    v
-                  ) || 'Digite o nome completo da rua!',
-              ]"
+                (v) => !!v || 'Nome é um campo obrigatório!',
+                (v) => /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(v) || 'Digite o nome completo!']"
               required
               error-count="2"
             >
@@ -45,7 +41,7 @@
               class="py-0"
               label="Fone"
               v-model="usuario.fone"
-              v-mask="foneMask"
+              v-mask="['(##) # ####-####']"
               :rules="[(v) => !!v || 'Fone é um campo obrigatório']"
               required
               error-count="2"
@@ -74,24 +70,21 @@
               class="py-0"
               label="CPF"
               v-model="usuario.cpf"
-              v-mask="cpfMask"
-              :rules="[(v) => !!v || 'CPF é um campo obrigatório']"
-              :disabled="tipoUser != 'Fornecedor'"
+              v-mask="['###.###.###-##']"
+              :disabled="usuario.tipoUser == 'Fornecedor'"
               required
               error-count="2"
             >
             </v-text-field>
           </b-col>
-          <!-- 
-           -->
+
           <b-col cols="5">
             <v-text-field
               class="py-0"
               label="CNPJ"
               v-model="usuario.cnpj"
-              :disabled="tipoUser == 'Fornecedor'"
-              v-mask="cnpjMask"
-              :rules="[(v) => !!v || 'CNPJ é um campo obrigatório']"
+              v-mask="['##.###.###/####-##']"
+              :disabled="usuario.tipoUser != 'Fornecedor'"
               required
               error-count="2"
             >
@@ -109,7 +102,7 @@
                 label="CEP"
                 v-model="usuario.cep"
                 :rules="[(v) => !!v || 'CEP é um campo obrigatório']"
-                v-mask="cepMask"
+                v-mask="['#####-###']"
                 v-on:change="loadCep"
                 required
                 error-count="2"
@@ -124,11 +117,8 @@
                 v-model="usuario.rua"
                 :rules="[
                   (v) => !!v || 'Rua é um campo obrigatório',
-                  (v) =>
-                    /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(
-                      v
-                    ) || 'Digite o nome completo da rua!',
-                ]"
+                  (v) =>/\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(v) || 'Digite o nome completo da rua!'
+                  ]"
                 required
                 error-count="2"
               >
@@ -140,7 +130,6 @@
                 class="py-0"
                 label="Número"
                 v-model="usuario.numero"
-                v-mask="numeroMask"
                 :rules="[(v) => !!v || 'Número é um campo obrigatório']"
                 required
                 error-count="2"
@@ -188,7 +177,8 @@
         </form>
 
         <div class="mx-auto" style="width: 380px">
-          <v-btn 
+          <!-- O botão será habilitado quando o formulário estiver OK -->
+          <v-btn
             color="success"
             small
             class="m-3"
@@ -198,7 +188,6 @@
             >Voltar
           </v-btn>
 
-          <!-- O botão será habilitado quando o formulário estiver OK -->
           <v-btn
             color="warning"
             small
@@ -242,18 +231,18 @@ export default {
         { name1: "Colaborador", value1: "colaborador" },
         { name1: "Fornecedor", value1: "fornecedor" },
       ],
+
       nome: "",
       fone: "",
-      foneMask: "(##) #####-####",
       email: "",
       cpf: "",
-      cpfMask: "###.###.###-##",
       cnpj: "",
-      cnpjMask: "##.###.###/####-##",
+      cep: "",
       rua: "",
       numero: "",
       bairro: "",
       cidade: "",
+
       estado: "",
       t_estado: [
         { name3: "AC", value3: "Acre" },
@@ -284,10 +273,10 @@ export default {
         { name3: "SE", value3: "Sergipe" },
         { name3: "TO", value3: "Tocantins" },
       ],
-      cep: "",
-      cepMask: "#####-###",
     };
   },
+
+  
 
   mounted() {
     this.buscarUsuario(this.$route.params.id);
@@ -315,18 +304,18 @@ export default {
     },
 
     voltar() {
-      this.$router.push("ListUser");
+      this.$router.push("ListLogin");
     },
 
-    loadCep: function () {
-      const url = "https://viacep.com.br/ws/" + this.cep.trim().replace(/[^0-9]/g, "") + "/json";
-      Axios.get(url).then( function (response) {
-          this.rua = response.data.logradouro;
-          this.bairro = response.data.bairro;
-          this.cidade = response.data.localidade;
-          this.estado = response.data.uf;
-        }.bind(this)
-      );
+    loadCep: function() {
+      
+      const url = 'https://viacep.com.br/ws/' + this.usuario.cep.trim().replace(/[^0-9]/g,'') + '/json';
+      Axios.get(url).then(function(response){
+        this.usuario.rua = response.data.logradouro;
+        this.usuario.bairro = response.data.bairro;
+        this.usuario.cidade = response.data.localidade;
+        this.usuario.estado = response.data.uf;
+      }.bind(this))
     },
   },
 };

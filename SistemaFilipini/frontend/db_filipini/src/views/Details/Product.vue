@@ -7,18 +7,21 @@
         <b-row>
           <b-col cols="7">
             <v-text-field
+              label="Nome do Produto"
               v-model="produto.nome"
-              :rules="[(v) => !!v || 'Nome é um campo obrigatório']"
-              label="Nome"
+              :rules="[
+              (v) => /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(v) || 'Digite o nome completo do produto!',
+              (v) => !!v || 'Nome do Produto é um campo obrigatório']"
               required
+              error-count="2"
             >
             </v-text-field>
           </b-col>
           <b-col cols="5">
             <v-text-field
+              label="Marca"
               v-model="produto.marca"
               :rules="[(v) => !!v || 'Marca é um campo obrigatório']"
-              label="Marca"
               required
             >
             </v-text-field>
@@ -28,28 +31,28 @@
         <b-row>
           <b-col cols="5">
             <v-text-field
+              label="Fornecedor"
               v-model="produto.fornecedor"
               :rules="[(v) => !!v || 'Fornecedor é um campo obrigatório']"
-              label="Fornecedor"
               required
             >
             </v-text-field>
           </b-col>
           <b-col cols="4">
             <v-text-field
-              v-model="produto.validade"
-              :rules="[(v) => !!v || 'Validade é um campo obrigatório']"
-              v-mask="validadeMask"
               label="Validade"
+              v-model="produto.validade"
+              v-mask="['##/##/####']"
+              :rules="[(v) => !!v || 'Validade é um campo obrigatório']"
               required
             >
             </v-text-field>
           </b-col>
           <b-col cols="3">
             <v-text-field
+              label="Valor"
               v-model="produto.valor"
               :rules="[(v) => !!v || 'Preço é um campo obrigatório']"
-              label="Valor"
               type="number"
               required
             >
@@ -68,8 +71,8 @@
             >Voltar
           </v-btn>
 
-          <!-- O botão será habilitado quando o formulário estiver OK -->
           <v-btn
+            :disabled="!validForm"
             color="warning"
             small
             @click="atualizarProduto"
@@ -105,10 +108,10 @@ import ProductService from "../../services/ProductService.js";
 export default {
   data() {
     return {
+      validForm: "",
       produto: null,
       msgSucesso: "",
       msgErro: "",
-      validadeMask: "##/##/####",
     };
   },
 
@@ -128,7 +131,7 @@ export default {
       ProductService.update(this.produto.idProduto, this.produto)
         .then((response) => {
           this.msgSucesso = "O Produto " + response.data.nome + " foi atualizado!";
-          this.$router.push({ name: "ListProduct" });
+          this.$router.push({ name: "ListUser" });
         })
         .catch((e) => {
           this.msgErro = e;
@@ -137,7 +140,7 @@ export default {
     },
 
     voltar() {
-      this.$router.push('ListProduct')
+      this.$router.push({ name: "ListUser" });
     }
   },
 };

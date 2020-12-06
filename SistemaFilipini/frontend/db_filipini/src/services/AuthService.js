@@ -13,7 +13,7 @@ class AuthService {
 
     logOut() {
         localStorage.removeItem("user-token");
-        localStorage.removeItem("user-Type");
+        localStorage.removeItem("user-type");
     }
 
     isSignedIn() {

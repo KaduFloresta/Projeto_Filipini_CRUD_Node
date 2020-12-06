@@ -14,22 +14,22 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href='/home'>
+            <b-nav-item href='/'>
               <v-icon left dark>mdi-home</v-icon>Home
             </b-nav-item>
-            <b-nav-item href="/createlogin">
+            <b-nav-item href="/createuser">
               <v-icon left dark>mdi-form-select</v-icon>Cadastro
             </b-nav-item>
-            <b-nav-item href="/listlogin">
+            <b-nav-item href="/listuser">
               <v-icon left dark>mdi-list-status</v-icon>Consulta
             </b-nav-item>
-            <b-nav-item href="/sends">
+            <b-nav-item href="/createshop">
               <v-icon left dark>mdi-food</v-icon>Vendas
             </b-nav-item>
             <b-nav-item href="/about">
               <v-icon left dark>mdi-information</v-icon>Sobre
             </b-nav-item>
-            <b-nav-item @click="logOut" href="#">
+            <b-nav-item @click="logout" href="#">
               <v-icon left dark>mdi-exit-to-app</v-icon>SAIR
             </b-nav-item>
           </b-navbar-nav>

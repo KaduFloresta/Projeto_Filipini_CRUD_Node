@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Nov-2020 às 20:15
+-- Tempo de geração: 06-Dez-2020 às 04:29
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.11
 
@@ -43,12 +43,23 @@ CREATE TABLE `endereco` (
 --
 
 INSERT INTO `endereco` (`idEndereco`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `cep`) VALUES
-(1, 'Rua Antonio', '10', 'America', 'Joinville', 'SC', '89206000'),
-(2, 'Rua Beatriz Seagal', '502', 'Iririu', 'Joinville', 'SC', '89003 010'),
-(3, 'Rua Carlos', '30', 'Boa VIsta', 'Joinville', 'SC', '89206000'),
-(4, 'Rua Denise', '40', 'Ademar Garcia', 'Joinville', 'SC', '89000 000'),
-(5, 'Rua Joao Teste', '401', 'Centro', 'Joinville', 'SC', '89300 001'),
-(6, 'Rua Horta da Mamãe', '1001', 'Comasa', 'Joinville', 'SC', '89503 100');
+(2, 'Rua São Vicente', '440', 'Boa Vista', 'Joinville', 'SC', '89206-230'),
+(3, 'Rua Erwino Menegotti', '145', 'Chico de Paulo', 'Jaraguá do Sul', 'SC', '89254-000'),
+(4, 'Rua Walter Meyer', '500', 'Anita Garibaldi', 'Joinville', 'SC', '89202-140'),
+(5, 'Rua Diogo S Pereira', '102', 'Guanabara', 'Joinville', 'SC', '89207-130'),
+(6, 'Rua Nacar', '250', 'Guanabara', 'Joinville', 'SC', '89207-200'),
+(7, 'Avenida Juscelino Kubitschek', '250', 'Centro', 'Joinville', 'SC', '89201-100'),
+(8, 'Rua Albano Schmidt', '100', 'Boa Vista', 'Joinville', 'SC', '89205-100'),
+(9, 'Rua Itapagé', '20', 'Atiradores', 'Joinville', 'SC', '89203-150'),
+(10, 'Rua Prefeito Helmuth Fallgatter', '25', 'Boa Vista', 'Joinville', 'SC', '89206-100'),
+(11, 'Rua Graciosa', '50', 'Guanabara', 'Joinville', 'SC', '89207-100'),
+(12, 'Rua São Vicente', '440', 'Boa Vista', 'Joinville', 'SC', '89206-230'),
+(13, 'Avenida Juscelino Kubitschek', '200', 'Centro', 'Joinville', 'SC', '89201-100'),
+(14, 'Rua José Koerber Júnior', '250', 'Anita Garibaldi', 'Joinville', 'SC', '89202-150'),
+(15, 'Rua Albano Schmidt', '120', 'Boa Vista', 'Joinville', 'SC', '89205-100'),
+(16, 'Rua Prefeito Helmuth Fallgatter', '125', 'Boa Vista', 'Joinville', 'SC', '89206-100'),
+(17, 'Rua São Vicente', '100', 'Boa Vista', 'Joinville', 'SC', '89206-230'),
+(18, 'Rua São Miguel', '12', 'Boa Vista', 'Joinville', 'SC', '89206-200');
 
 -- --------------------------------------------------------
 
@@ -70,16 +81,21 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`idProduto`, `nome`, `marca`, `fornecedor`, `validade`, `valor`) VALUES
-(1, 'Linguiça Carne Bovina', 'Seara', 'Seara Ltda', '10/12/2020', 2.5),
-(2, 'Apresuntado sem Gordura', 'Sadia', 'Sadia Ltda', '02/02/2021', 2),
-(3, 'Salame 500g ', 'Aurora', 'Aurora Ltda', '03/03/2021', 4),
-(4, 'Mortadela Bexiga 350gr', 'Filipini', 'Filipini Ltda', '01/01/2021', 5),
-(6, 'Peperoni Peça', 'Filipini', 'Filipini Ltda', '12/11/2020', 2.5),
-(7, 'Peperoni Peça', 'Filipini', 'Filipini Ltda', '12/11/2020', 2.5),
+(1, 'Linguiça Carne Bovina', 'Seara', 'Seara SA', '10/02/2021', 3.99),
+(2, 'Apresuntado sem Gordura', 'Sadia', 'Sadia SA', '02/02/2021', 2.99),
+(3, 'Salame 500g ', 'Aurora', 'Aurora SA', '03/03/2021', 4.55),
+(4, 'Mortadela Bexiga 350gr', 'Filipini', 'Filipini Ltda', '01/01/2021', 5.99),
+(5, 'Torresmo Pacote 1,5kg', 'Tia Benta', 'Tia Benta Ltda', '14/02/2021', 16.99),
+(6, 'Torresmo Pacote 150g', 'Tia Benta', 'Tia Benta Ltda', '10/10/2021', 12.89),
+(7, 'Salame 450gr', 'Filipini', 'Filipini Ltda', '14/02/2022', 10.99),
 (8, 'Peperoni Peça 200gr', 'Filipini', 'Filipini Ltda', '12/11/2021', 2.5),
-(9, 'Peperoni Peça 200gr', 'Filipini', 'Filipini Ltda', '12/11/2021', 2.5),
-(10, 'Pepperoni Peça 250gr', 'Filipini', 'FIlipini Ltda', '10/12/2020', 3.99),
-(11, 'Chouriço temperado 450gr', 'Filipini', 'FIlipini Ltda', '05/02/2021', 4.89);
+(9, 'Salsicha Pacote 1,5Kg', 'Sadia', 'Sadia SA', '12/05/2021', 15.99),
+(10, 'Linguiça Carne de Frango', 'Filipini', 'Filipini Ltda', '10/02/2022', 3.59),
+(11, 'Chouriço temperado 450gr', 'Filipini', 'FIlipini Ltda', '05/02/2021', 4.89),
+(12, 'Torresmo Pacote 400gr', 'Tia Benta', 'Tia Benta Ltda', '14/02/2021', 8.99),
+(13, 'Torresmo Pacote 1kg', 'Tia Benta', 'Tia Benta Ltda', '14/02/2021', 14.99),
+(14, 'Torresmo Pacote 2Kg', 'Tia Benta', 'Tia Benta Ltda', '14/02/2021', 18.99),
+(15, 'Linguiça Mista', 'Filipini', 'Filipini Ltda', '10/02/2022', 3.59);
 
 -- --------------------------------------------------------
 
@@ -125,17 +141,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `tipoUser`, `nome`, `email`, `fone`, `cpf`, `cnpj`, `Endereco_idEndereco`) VALUES
-(1, 'Cliente', 'Alisson Wenceslau', 'alisson@gmail.com', '47 9999 9999', '111.111.111-11', NULL, 1),
-(2, 'Colaborador', 'Kadu Floresta', 'kadu@gmail.com', '47 8888 8888', '444.444.444-44', NULL, 2),
-(3, 'Fornecedor', 'Leonardo Filipini', 'leo@gmail.com', '47 7777 7777', '222.222.222-22', NULL, 3),
-(4, 'Fornecedor', 'Jamal Martins', 'jamal@gmail.com', '47 5555 5555', '', '11.111.111/1111-11', 4),
-(10, 'Cliente', 'Joao', 'joao@gmail.com', '48 7894 7894', '951.951.959-95', '777777777777777777', 3),
-(11, 'Colaborador', 'Pedro', 'teste@teste.com', '47 8888 9999', '121.121.121-21', '11.111.111/1111-11', 5),
-(12, 'Cliente', 'Maria da Conceição', 'maria@gmail.com', '48 7894 7894', '100.100.100-10', '777777777777777777', 6),
-(13, 'Cliente', 'Lidia', 'lidia@gmail.com', '41 1212 1212', '321.321.321-21', '12121/121212/212127', 2),
-(15, 'Cliente', 'Janaina Lipe', 'janaina@teste.com', '47 8888 9999', '121.121.121-21', '11.111.111/1111-11', 4),
-(16, 'Cliente', 'Janaina Lipe', 'janaina@teste.com', '47 8888 9999', '121.121.121-21', '11.111.111/1111-11', 3),
-(17, 'Cliente', 'Janaina Lipe', 'janaina@teste.com', '47 8888 9999', '121.121.121-21', '11.111.111/1111-11', 4);
+(2, 'Colaborador', 'Kadu Floresta', 'kadu@gmail.com', '(47) 8 8888-888', '125.125.125-12', '', 2),
+(3, 'Colaborador', 'Alisson Wenceslau', 'alisson@uol.com', '(47) 2 1212-1212', '212.121.212-12', '', 3),
+(4, 'Colaborador', 'Leonardo Balitski', 'leo@gmail.com', '(23) 2 3223-2323', '232.323.232-32', '', 4),
+(5, 'Fornecedor', 'Lucas Jamal Martins', 'jamal@uol.com', '(56) 5 6565-6565', '', '56.565.656/5656-56', 5),
+(6, 'Cliente', 'Jualiana Martins', 'Ju@uol.com', '(54) 4 5454-5454', '565.656.565-65', '', 6);
 
 -- --------------------------------------------------------
 
@@ -155,18 +165,7 @@ CREATE TABLE `userlogin` (
 --
 
 INSERT INTO `userlogin` (`idUserAcess`, `email`, `senha`, `tipoUser`) VALUES
-(1, 'kadu@gmail.com', '123123', 1),
-(2, 'leo@uol.com', '123456', 2),
-(3, 'alisson@uol.com', '789456', 2),
-(4, 'jamal222@gmail.com', '321321', 3),
-(5, 'teste@gmail.com', '$2a$08$FkpvjO/rG4Osw5WSI4rsmO.ORnAxbj0Ja9PoYaQF7auxX0fP30m92', 3),
-(6, 'teste1@gmail.com', '$2a$08$00qbH/UPK/DCfxaDtKT.Dun6vTlAry9kMObaQnBqGta37dBdjVnfy', 1),
-(7, 'teste2@gmail.com', '$2a$08$LNAu/SOc3j8Xcstk3EaGGepUxfzqZ/7ltM3Rq1w2ieaRvbGMbbhwa', 2),
-(8, 'teste3@gmail.com', '$2a$08$Wad.Z1lfB8PwhQEKPaJ.0uyoCWKUIe2IaJlaM5ZaXuRz7GRrUVIsq', 3),
-(10, 'kadu@senac.com', '$2a$08$JERzXQH6iupxQi2dg4s42u4WMOcPS5EgqVsFMM1yrzNku1wKVHKDy', 1),
-(11, 'leo@senac.com', '$2a$08$tRH0nmH4lgMC2eS4usBua.9NlwzOcM0S.QGqNcUWJVlpr3IAh53pK', 0),
-(12, 'alisson@senac.com', '$2a$08$HK0.CmXPV/dYSnuxZvskQ.TsnbA3Lrxz1jn/KftytN7L24BYO7dP.', 0),
-(13, 'jamal@senac.com', '$2a$08$FMHbj/ztrGZIUJgY/hNbTOE0O.wlxBfxBtzqZtqrM7CEQZi5le2Z.', 0);
+(1, 'teste@teste.com', '$2a$08$EmybFwGomhoLqq1N6zRdSudEN8.mxMeSQNMWNaxU1Yx0d3t0yOrUG', 1);
 
 -- --------------------------------------------------------
 
@@ -241,13 +240,13 @@ ALTER TABLE `vendas`
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `idEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idEndereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `produtos_vendas`
@@ -259,13 +258,13 @@ ALTER TABLE `produtos_vendas`
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `idUserAcess` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idUserAcess` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `vendas`
