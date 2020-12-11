@@ -1,5 +1,12 @@
 const Produto_VendaModel = require("../models/produto_Venda.model.js");
 
+// REGRAS DE NÉGOCIO CRUD
+
+// - Produto_Venda:
+// Criação da Venda
+// Leitura da Venda (id e all)
+// Delete (id)
+
 exports.create = (req, res) => {
     console.log(req.body);
     if (!req.body.Produto_idProduto && !req.body.Vendas_idVendas) {

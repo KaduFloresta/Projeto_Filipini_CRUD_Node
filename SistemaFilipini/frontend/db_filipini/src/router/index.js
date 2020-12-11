@@ -60,6 +60,11 @@ const routes = [{
     name: 'ListLogin',
     component: () => import("../views/Read/UserLogin.vue")
   },
+  {
+    path: '/listshop',
+    name: 'ListShop',
+    component: () => import("../views/Read/Shop.vue")
+  },
   // Detalhe Update/Delete
   {
     path: '/detailuser',
@@ -75,6 +80,11 @@ const routes = [{
     path: '/detaillogin',
     name: 'DetailLogin',
     component: () => import("../views/Details/UserLogin.vue")
+  },
+  {
+    path: '/detailshop',
+    name: 'DetailShop',
+    component: () => import("../views/Details/Shop.vue")
   },
   ]
 },

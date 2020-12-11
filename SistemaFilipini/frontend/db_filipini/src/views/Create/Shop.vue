@@ -38,40 +38,58 @@
 
                     <h5 class="text-danger">Lista de Produtos</h5>
                     <hr />
-                    <v-data-table
-                      :headers="cabecalho"
-                      :items="produtos"
-                      disable-pagination
-                      :hide-default-footer="true"
-                    >
-                      <template v-slot:[`item.acoes`]="{ item }">
-                        <v-btn
-                          color="warning"
-                          small
-                          class="mr-2"
-                          @click="editarProduto(item.id)"
-                          ><v-icon small class="mr-1">mdi-pencil</v-icon>
-                        </v-btn>
+                    <!-- <v-data-table
+		:headers="cabecalho"
+		:items="produtos"
+		disable-pagination
+		:hide-default-footer="true"
+	>
+		<template v-slot:[`item.acoes`]="{ item }">
+		<v-btn
+			color="warning"
+			small
+			class="mr-2"
+			@click="editarProduto(item.id)"
+			><v-icon small class="mr-1">mdi-pencil</v-icon>
+		</v-btn>
 
-                        <v-btn
-                          color="error"
-                          small
-                          class="mr-2"
-                          @click="deletarProduto(item.id)"
-                          ><v-icon small class="mr-1">mdi-delete</v-icon>
-                        </v-btn>
+		<v-btn
+			color="error"
+			small
+			class="mr-2"
+			@click="deletarProduto(item.id)"
+			><v-icon small class="mr-1">mdi-delete</v-icon>
+		</v-btn>
+		</template>
+	</v-data-table> -->
+
+                    <v-data-table
+                      v-model="selected"
+                      :headers="headers"
+                      :items="desserts"
+                      :single-select="singleSelect"
+                      item-key="name"
+                      show-select
+                      class="elevation-1"
+                    >
+                      <template v-slot:top>
+                        <v-switch
+                          v-model="singleSelect"
+                          label="Single select"
+                          class="pa-3"
+                        ></v-switch>
                       </template>
                     </v-data-table>
 
                     <div class="mx-auto" style="width: 120px">
                       <!-- O botão será habilitado quando o formulário estiver OK -->
                       <v-btn
-                        class="mb-5"
+                        class="m-3"
                         :disabled="!validForm"
                         @click="adicionarUsuario"
-                        color="success"
+                        color="Primary"
                         width="120px"
-                        >Criar</v-btn
+                        >Fazer Venda</v-btn
                       >
                     </div>
                   </v-form>
@@ -95,12 +113,12 @@
             </b-tab>
 
             <b-tab title="Lista de Vendas">
-              <Product />
+              <Shop />
             </b-tab>
 
             <!-- <b-tab title="User Login">
-              <UserLogin />
-            </b-tab> -->
+<UserLogin />
+</b-tab> -->
 
             <b-tab title="Info" disabled>
               <b-card> </b-card>
@@ -123,18 +141,104 @@
 
 <script>
 // import Axios from "axios";
-// import UserShop from "../../services/UserShop.js";
 import ProductService from "../../services/ProductService.js";
-// import Product from "../Create/Product.vue";
-// import UserLogin from "../Create/UserLogin.vue";
+import Shop from "../Read/Shop.vue";
 
 export default {
   components: {
-    // UserLogin,
-    // Product,
+    Shop,
   },
   data() {
     return {
+      // Teste de Lista com Checkbox
+      singleSelect: false,
+      selected: [],
+      headers: [
+        {
+          text: "Dessert (100g serving)",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+        { text: "Calories", value: "calories" },
+        { text: "Fat (g)", value: "fat" },
+        { text: "Carbs (g)", value: "carbs" },
+        { text: "Protein (g)", value: "protein" },
+        { text: "Iron (%)", value: "iron" },
+      ],
+      desserts: [
+        {
+          name: "Frozen Yogurt",
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          iron: "1%",
+        },
+        {
+          name: "Ice cream sandwich",
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: "1%",
+        },
+        {
+          name: "Eclair",
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: "7%",
+        },
+        {
+          name: "Cupcake",
+          calories: 305,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          iron: "8%",
+        },
+        {
+          name: "Gingerbread",
+          calories: 356,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          iron: "16%",
+        },
+        {
+          name: "Jelly bean",
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: "0%",
+        },
+        {
+          name: "Lollipop",
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: "2%",
+        },
+        {
+          name: "Honeycomb",
+          calories: 408,
+          fat: 3.2,
+          carbs: 87,
+          protein: 6.5,
+          iron: "45%",
+        },
+        {
+          text: "Ação",
+          align: "center",
+          sortable: false,
+          value: "acoes",
+        },
+      ],
+
       name: "CreateShop",
       // Tabulação das pages
       tabIndex: 0,
@@ -151,39 +255,39 @@ export default {
         { name1: "Fornecedor", value1: "fornecedor" },
       ],
 
-      produtos: [],
-      cabecalho: [
-        {
-          text: "Nome",
-          align: "center",
-          sortable: true,
-          value: "nome",
-        },        
-        {
-          text: "Validade",
-          align: "center",
-          sortable: true,
-          value: "validade",
-        },
-        {
-          text: "Preço",
-          align: "center",
-          sortable: true,
-          value: "valor",
-        },
-        {
-          text: "Quantidade",
-          align: "center",
-          sortable: false,
-          value: "qtde",
-        },
-        {
-          text: "Ação",
-          align: "center",
-          sortable: false,
-          value: "acoes",
-        },
-      ],
+      // produtos: [],
+      // cabecalho: [
+      //   {
+      //     text: "Nome",
+      //     align: "center",
+      //     sortable: true,
+      //     value: "nome",
+      //   },
+      //   {
+      //     text: "Validade",
+      //     align: "center",
+      //     sortable: true,
+      //     value: "validade",
+      //   },
+      //   {
+      //     text: "Preço",
+      //     align: "center",
+      //     sortable: true,
+      //     value: "valor",
+      //   },
+      //   {
+      //     text: "Quantidade",
+      //     align: "center",
+      //     sortable: false,
+      //     value: "qtde",
+      //   },
+      //   {
+      //     text: "Ação",
+      //     align: "center",
+      //     sortable: false,
+      //     value: "acoes",
+      //   },
+      // ],
     };
   },
 
@@ -192,7 +296,7 @@ export default {
   },
 
   methods: {
-        buscarProduto() {
+    buscarProduto() {
       ProductService.getAll()
         .then((response) => {
           this.produtos = response.data.map(this.formatarProduto);

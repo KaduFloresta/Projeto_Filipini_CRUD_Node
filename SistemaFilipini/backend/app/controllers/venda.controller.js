@@ -1,27 +1,35 @@
 const VendaModel = require("../models/venda.model.js");
+const UsuarioModel = require("../models/usuario.model.js");
 
 exports.create = (req, res) => {
     if (!req.body.formaPgto) {
         res.status(400).send({
-            message: "Conteúdo da Requisição está Vazio."
+            message: "Dados NÃO enviados."
         });
     }
     else {
-        const venda = new VendaModel({
-            formaPgto: req.body.formaPgto,
-            User_idUser: req.body.User_idUser
+        const usuario = new UsuarioModel({
+            idUser: req.body.idUser
         });
 
-        VendaModel.create(venda, (err, data) => {
-            if (err) {
-                res.status(500).send({
-                    message: err.message || "Ocorreu um erro!"
-                });
-            }
-            else {
-                res.send(data);
-            }
-        });
+        const result = function (_, value) {
+            const venda = new VendaModel({
+                formaPgto: req.body.formaPgto,
+                User_idUser: value.idUser
+            });
+
+            VendaModel.create(venda, (err, data) => {
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
+                    });
+                }
+                else {
+                    res.send(data);
+                }
+            });
+        };
+        UsuarioModel.create(usuario, result);
     }
 }
 
