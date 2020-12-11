@@ -295,7 +295,7 @@ export default {
         .then((response) => {
           this.msgSucesso =
             "O usuário " + response.data.nome + " foi atualizado!";
-          this.$router.push({ name: "ListUser" });
+          this.$router.push({ name: 'ListUser' });
         })
         .catch((e) => {
           this.msgErro = e;
@@ -304,7 +304,7 @@ export default {
     },
 
     voltar() {
-      this.$router.push("ListLogin");
+      this.$router.push("ListUser");
     },
 
     loadCep: function() {

@@ -25,6 +25,15 @@
 ---
 
 # Projeto_Filipini_CRUD_Node
+<p align="center">
+    <a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vuejs.org/images/logo.png" alt="Vue logo"></a>
+    <a href="https://vuetifyjs.com" target="_blank">
+    <img alt="Vuetify Logo" width="85" src="https://cdn.vuetifyjs.com/images/logos/logo.svg">
+  </a>
+  <a href="https://bootstrap-vue.org">
+    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/static/banner.png" width="110">
+  </a>
+</p>
 ```
 Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login e autorizações, tela de vendas de produtos, cadastro de clientes e Estoque.
 ```
@@ -67,7 +76,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - SQL.
 - Teste - Postman.
 ```
-  
+
 ---
 <h2><a href="https://github.com/KaduFloresta/Projeto_Filipini_CRUD_Node/blob/main/SistemaFilipini/frontend/db_filipini/comandos.md" title="Comandos">🐛 Comandos NODE e VUE 🐛</a><br></h2><br>
 
@@ -78,8 +87,8 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] user - cliente, fornecedor, colaborador.
 - [X] user - endereço.
 - [X] produto.
-- [ ] venda.
-- [ ] produto_venda.
+- [X] venda.
+- [X] produto_venda.
 
 ### Desenvolvimento BackEnd MVC
 - [X] usuario login.
@@ -115,7 +124,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 
 ### Desenvolvimento FrontkEnd - Vue (CRUD)
 **Login**
-- [ ] usuario login.
+- [X] usuario login.
 
 **Venda de Produtos**
 - [ ] tela de Venda.
@@ -127,7 +136,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] user - colaborador + endereço.
 - [X] produto.
 - [ ] venda.
-- 
+
 **Read**
 - [X] usuario login.
 - [X] user - cliente + endereço.
@@ -160,6 +169,5 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] Tela sem ABA qdo volta do Update.
 - [X] BuscaCEP do Update endereço User.
 - [X] Update UserLogin.
-- [ ] .
-
+  
 ---

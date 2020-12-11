@@ -131,7 +131,7 @@ export default {
       ProductService.update(this.produto.idProduto, this.produto)
         .then((response) => {
           this.msgSucesso = "O Produto " + response.data.nome + " foi atualizado!";
-          this.$router.push({ name: "ListUser" });
+          this.$router.push({ name: 'ListUser' });
         })
         .catch((e) => {
           this.msgErro = e;
@@ -140,7 +140,7 @@ export default {
     },
 
     voltar() {
-      this.$router.push({ name: "ListUser" });
+      this.$router.push("ListUser");
     }
   },
 };

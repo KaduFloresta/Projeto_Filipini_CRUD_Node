@@ -269,8 +269,8 @@ import UserLogin from "../Create/UserLogin.vue";
 
 export default {  
   components: {
-    UserLogin,
     Product,
+    UserLogin,
   },
   data() {
     return {

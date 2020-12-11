@@ -1,28 +1,26 @@
 const sql = require("./db.js");
 
-const newLocal = function (venda) {
+const Venda = function (venda) {
     this.formaPgto = venda.formaPgto;
 };
-// Construtor
-const Venda = newLocal
 
 // Cria um novo venda no BD
-Venda.create = (venda, result) => {
+Venda.create = (vendas, result) => {
     // Implementar criação de um novo venda no BD
-    sql.query("INSERT INTO vendas SET ? ", venda, (err, res) => {
+    sql.query("INSERT INTO vendas SET ? ", vendas, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(err, null);
             return;
         }
-        console.log("vendas criado: ", { id_vendas: res.insertid, ...venda });
-        result(null, { id_vendas: res.insertid, ...venda });
+        console.log("Venda criada: ", { idVendas: res.insertid, ...vendas });
+        result(null, { idVendas: res.insertid, ...vendas });
     });
 };
 
 // Seleciona um venda através do ID
 Venda.findById = (vendaId, result) => {
-    sql.query("SELECT * FROM vendas WHERE id_vendas = " + vendaId, (err, res) => {
+    sql.query("SELECT * FROM vendas WHERE idVendas = " + vendaId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -49,7 +47,7 @@ Venda.getAll = (result) => {
             result(null, err);
             return;
         }
-        console.log("vendas: ", res);
+        console.log("Vendas: ", res);
         result(null, res);
     });
 };
