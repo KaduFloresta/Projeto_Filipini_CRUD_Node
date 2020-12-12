@@ -1,35 +1,27 @@
 const VendaModel = require("../models/venda.model.js");
-const UsuarioModel = require("../models/usuario.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.formaPgto) {
+    if (!req.body.formaPgto || !req.body.User_idUser) {
         res.status(400).send({
             message: "Dados NÃO enviados."
         });
     }
     else {
-        const usuario = new UsuarioModel({
-            idUser: req.body.idUser
+        const venda = new VendaModel({
+            formaPgto: req.body.formaPgto,
+            User_idUser: req.body.idUser
         });
 
-        const result = function (_, value) {
-            const venda = new VendaModel({
-                formaPgto: req.body.formaPgto,
-                User_idUser: value.idUser
-            });
-
-            VendaModel.create(venda, (err, data) => {
-                if (err) {
-                    res.status(500).send({
-                        message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
-                    });
-                }
-                else {
-                    res.send(data);
-                }
-            });
-        };
-        UsuarioModel.create(usuario, result);
+        VendaModel.create(venda, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
+                });
+            }
+            else {
+                res.send(data);
+            }
+        });
     }
 }
 
@@ -53,6 +45,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    console.log("erro X")
     VendaModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
@@ -64,8 +57,39 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.update = (req, res) => {
+    if (!req.body.formaPgto && !req.body.idUser) {
+        res.status(400).send({
+            message: "Conteúdo do corpo da requisição está vazio."
+        });
+    }
+    else {
+        const venda = new PedidoModel({
+            formaPgto: req.body.formaPgto,
+            idUser: req.body.idUser
+        });
 
-exports.deleteById = (req, res) => {
+        PedidoModel.updateById(req.params.vendaId, venda, (err, data) => {
+            if (err) {
+                if (err.kind == "not_found") {
+                    res.status(404).send({
+                        message: "Venda não encontrada!"
+                    });
+                }
+                else {
+                    res.status(500).send({
+                        message: "Erro ao atualizar a venda!"
+                    });
+                }
+            }
+            else {
+                res.send(data);
+            }
+        });
+    }
+};
+
+exports.delete = (req, res) => {
     VendaModel.removeById(req.params.vendaId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
@@ -77,6 +101,17 @@ exports.deleteById = (req, res) => {
         }
         else {
             res.send({ message: "Venda deletada com sucesso!" });
+        }
+    });
+};
+
+exports.deleteAll = (req, res) => {
+    PedidoModel.remove((err) => {
+        if (err) {
+            res.status(500).send({ message: "Erro ao deletar todas as vendas" });
+        }
+        else {
+            res.send({ message: "Todas oas vendas deletadas com sucesso!" });
         }
     });
 };
