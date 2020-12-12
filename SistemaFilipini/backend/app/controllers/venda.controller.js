@@ -9,7 +9,7 @@ exports.create = (req, res) => {
     else {
         const venda = new VendaModel({
             formaPgto: req.body.formaPgto,
-            User_idUser: req.body.idUser
+            User_idUser: req.body.User_idUser
         });
 
         VendaModel.create(venda, (err, data) => {
