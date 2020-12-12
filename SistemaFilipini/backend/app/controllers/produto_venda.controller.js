@@ -1,26 +1,18 @@
-const Produto_VendaModel = require("../models/produto_Venda.model.js");
-
-// REGRAS DE NÉGOCIO CRUD
-
-// - Produto_Venda:
-// Criação da Venda
-// Leitura da Venda (id e all)
-// Delete (id)
+const produto_VendaModel = require("../models/produto_venda.model.js");
 
 exports.create = (req, res) => {
-    console.log(req.body);
-    if (!req.body.Produto_idProduto && !req.body.Vendas_idVendas) {
+    if (!req.body.produtos_idprodutos && !req.body.vendas_idVendas) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
-        const produtoVenda = new Produto_VendaModel({
-            Produto_idProduto: req.body.Produto_idProduto,
-            Vendas_idVendas: req.body.Vendas_idVendas,
+        const produtoVenda = new produto_VendaModel({
+            produtos_idprodutos: req.body.produtos_idprodutos,
+            vendas_idVendas: req.body.vendas_idVendas
         });
 
-        Produto_VendaModel.create(produtoVenda, (err, data) => {
+        produto_VendaModel.create(produtoVenda, (err, data) => {
             if (err) {
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro!"
@@ -34,7 +26,7 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req, res) => {
-    Produto_VendaModel.getAll((err, data) => {
+    produto_VendaModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro!"
@@ -45,9 +37,9 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Encontra um registro produto_venda
+// Encontra um registro produto_pedido
 exports.findOne = (req, res) => {
-    Produto_VendaModel.findById(req.params.produtoVendaId, (err, data) => {
+    produto_VendaModel.findById(req.params.produtoVendaId, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
@@ -66,17 +58,17 @@ exports.findOne = (req, res) => {
 };
 
 // Retorna um Array ou não!
-exports.findByVenda = (req, res) => {
-    Produto_VendaModel.getByVenda(req.params.vendaId, (err, data) => {
+exports.findByPedido = (req, res) => {
+    produto_VendaModel.getByPedido(req.params.vendaId, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
-                    message: "Venda não encontrado! ID: " + req.params.vendaId
+                    message: "Pedido não encontrado! ID: " + req.params.vendaId
                 });
             }
             else {
                 res.send(500).send({
-                    message: "Erro ao retornar a venda com ID: " + req.params.vendaId
+                    message: "Erro ao retornar o pedido com ID: " + req.params.vendaId
                 });
             }
         }
@@ -87,7 +79,7 @@ exports.findByVenda = (req, res) => {
 
 // Retorna um Array ou não!
 exports.findByProduto = (req, res) => {
-    Produto_VendaModel.getByProduto(req.params.produtoId, (err, data) => {
+    produto_VendaModel.getByProduto(req.params.produtoId, (err, data) => {
         if (err) {
             if (err.kind == "not_found!") {
                 res.status(404).send({
@@ -105,15 +97,48 @@ exports.findByProduto = (req, res) => {
     });
 };
 
-// Deleta uma venda 
-exports.delete = (req, res) => {
-    Produto_VendaModel.remove(req.params.produtoVendaId, (err, data) => {
-        if (err) {
-            if (err.kind == "not_found") {
-                res.status(404).send({ message: "Venda não encontrado!" });
+// Altera o dados do produto_pedido
+exports.update = (req, res) => {
+    if (!req.body.produtos_idprodutos && !req.body.vendas_idVendas) {
+        res.status(400).send({
+            message: "Conteúdo do corpo da requisição está vazio."
+        });
+    }
+    else {
+        const produtoVenda = new produto_VendaModel({
+            produtos_idprodutos: req.body.produtos_idprodutos,
+            vendas_idVendas: req.body.vendas_idVendas
+        });
+
+        produto_VendaModel.updateById(req.params.produtoVendaId, produtoVenda, (err, data) => {
+            if (err) {
+                if (err.kind == "not_found") {
+                    res.status(404).send({
+                        message: "Venda não encontrada!"
+                    });
+                }
+                else {
+                    res.status(500).send({
+                        message: "Erro ao atualizar a venda!"
+                    });
+                }
             }
             else {
-                res.status(500).send({ message: "Erro ao deletar a venda" });
+                res.send(data);
+            }
+        });
+    }
+};
+
+// Deleta um pedido 
+exports.delete = (req, res) => {
+    produto_VendaModel.remove.apply(req.params.produtoVendaId, (res, data) => {
+        if (err) {
+            if (err.kind == "not_found") {
+                res.status(404).send({ message: "Venda não encontrada!" });
+            }
+            else {
+                res.status(500).send({ message: "Erro ao deletar a venda!" });
             }
         }
         else {
@@ -122,15 +147,15 @@ exports.delete = (req, res) => {
     });
 };
 
-// Deleta uma venda
-exports.deleteByVenda = (req, res) => {
-    Produto_VendaModel.removeByVenda(req.params.vendaId, (err, data) => {
+// Deleta um pedido
+exports.deleteByPedido = (req, res) => {
+    produto_VendaModel.remove.apply(req.params.vendaId, (res, data) => {
         if (err) {
             if (err.kind == "not_found") {
-                res.status(404).send({ message: "Venda não encontrado!" });
+                res.status(404).send({ message: "Venda não encontrada!" });
             }
             else {
-                res.status(500).send({ message: "Erro ao deletar a venda" });
+                res.status(500).send({ message: "Erro ao deletar a venda!" });
             }
         }
         else {
@@ -141,17 +166,29 @@ exports.deleteByVenda = (req, res) => {
 
 // Deleta um produto
 exports.deleteByProduto = (req, res) => {
-    Produto_VendaModel.removeByProduto(req.params.produtoId, (err, data) => {
+    produto_VendaModel.remove.apply(req.params.produtoId, (res, data) => {
         if (err) {
             if (err.kind == "not_found") {
-                res.status(404).send({ message: "Venda não encontrado!" });
+                res.status(404).send({ message: "Venda não encontrada!" });
             }
             else {
-                res.status(500).send({ message: "Erro ao deletar a venda!" });
+                res.status(500).send({ message: "Erro ao deletar a venda" });
             }
         }
         else {
             res.send({ message: "Venda deletada com sucesso!" });
+        }
+    });
+};
+
+// Deleta todos os pedidos
+exports.deleteAll = (req, res) => {
+    produto_VendaModel.remove((err) => {
+        if (err) {
+            res.status(500).send({ message: "Erro ao deletar todas as vendas!" });
+        }
+        else {
+            res.send({ message: "Todas as vendas deletadas com sucesso!" });
         }
     });
 };

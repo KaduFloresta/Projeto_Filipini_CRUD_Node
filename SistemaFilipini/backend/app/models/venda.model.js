@@ -2,6 +2,7 @@ const sql = require("./db.js");
 
 const Venda = function (venda) {
     this.formaPgto = venda.formaPgto;
+    this.User_idUser = venda.User_idUser;
 };
 
 // Cria um novo venda no BD
@@ -57,7 +58,7 @@ Venda.updateById = (vendaId, venda, result) => {
     this.formaPgto = venda.formaPgto;
     sql.query(`UPDATE vendas 
                SET formaPgto = ?
-               WHERE id_vendas = ?`, [venda.formaPgto, vendaId], (err, res) => {
+               WHERE idVendas = ?`, [venda.formaPgto, vendaId], (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -66,15 +67,15 @@ Venda.updateById = (vendaId, venda, result) => {
             result({ kind: "not_found" }, null);
         }
         else {
-            console.log("venda atualizado: ", { id_vendas: vendaId, ...venda });
-            result(null, { id_vendas: vendaId, ...venda });
+            console.log("venda atualizado: ", { idVendas: vendaId, ...venda });
+            result(null, { idVendas: vendaId, ...venda });
         }
     });
 };
 
 // Remover o venda através do ID
 Venda.remove = (vendaId, result) => {
-    sql.query("DELETE FROM vendas WHERE id_vendas = ?", vendaId, (err, re) => {
+    sql.query("DELETE FROM vendas WHERE idVendas = ?", vendaId, (err, re) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -89,7 +90,7 @@ Venda.remove = (vendaId, result) => {
 };
 
 // Remover todos os vendas
-Venda.remove = (result) => {
+Venda.removeAll = (result) => {
     sql.query("DELETE FROM vendas", (err, re) => {
         if (err) {
             console.log("Erro", err);
