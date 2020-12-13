@@ -9,7 +9,7 @@ exports.create = (req, res) => {
     else {
         const venda = new VendaModel({
             formaPgto: req.body.formaPgto,
-            User_idUser: req.body.idUser
+            User_idUser: req.body.User_idUser
         });
 
         VendaModel.create(venda, (err, data) => {
@@ -58,18 +58,18 @@ exports.findAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    if (!req.body.formaPgto && !req.body.idUser) {
+    if (!req.body.formaPgto && !req.body.User_idUser) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
-        const venda = new PedidoModel({
+        const venda = new VendaModel({
             formaPgto: req.body.formaPgto,
-            idUser: req.body.idUser
+            User_idUser: req.body.User_idUser
         });
 
-        PedidoModel.updateById(req.params.vendaId, venda, (err, data) => {
+        VendaModel.updateById(req.params.vendaId, venda, (err, data) => {
             if (err) {
                 if (err.kind == "not_found") {
                     res.status(404).send({
@@ -104,9 +104,9 @@ exports.delete = (req, res) => {
         }
     });
 };
-
+ 
 exports.deleteAll = (req, res) => {
-    PedidoModel.remove((err) => {
+    VendaModel.remove((err) => {
         if (err) {
             res.status(500).send({ message: "Erro ao deletar todas as vendas" });
         }
