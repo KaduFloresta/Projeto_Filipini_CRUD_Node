@@ -111,7 +111,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] user - cliente, fornecedor, colaborador.
 - [X] user - endereço.
 - [X] produto.
-- [ ] venda.
+- [X] venda.
 - [ ] produto_venda.
 
 ### Teste Postman CRUD
@@ -119,7 +119,7 @@ Desenvolvimento do sistema para a empresa Embutidos Filipini - Sistema com login
 - [X] user - cliente, fornecedor, colaborador.
 - [X] user - endereço.
 - [X] produto.
-- [ ] venda.
+- [X] venda.
 - [ ] produto_venda.
 
 ### Desenvolvimento FrontkEnd - Vue (CRUD)
