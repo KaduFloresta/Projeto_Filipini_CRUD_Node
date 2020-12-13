@@ -1,9 +1,9 @@
 const sql = require("./db.js");
 
 // Construtor
-const ProdutoVenda = function (produtoVenda) {
-    this.produto_idProduto = produtoVenda.produto_idProduto;
-    this.vendas_idVendas = produtoVenda.vendas_idVendas;
+const ProdutoVenda = function (produtoVendas) {
+    this.Vendas_idVendas = produtoVendas.Vendas_idVendas;
+    this.Produto_idProduto = produtoVendas.Produto_idProduto;
 }
 
 // Cria um nova relação produto_pedido no BD
@@ -15,7 +15,7 @@ ProdutoVenda.create = (produtoVenda, result) => {
             result(err, null);
             return;
         }
-        console.log("Pedido criado: ", { idVendas: res.insertid, ...vendas });
+        console.log("Pedido criado: ", { idProduto_Vendas: res.insertid, ...produtoVenda });
         result(null, { idProduto_Vendas: res.insertid, ...produtoVenda });
     });
 };
@@ -128,7 +128,7 @@ ProdutoVenda.updateById = (produtoVenda, result) => {
 
 // Remover o pedido através do ID
 ProdutoVenda.remove = (produtoVendaId, result) => {
-    sql.query("DELETE FROM vendas WHERE idVendas = ?", produtoVendaId, (err, re) => {
+    sql.query("DELETE FROM produtos_vendas WHERE idProduto_Vendas = ?", produtoVendaId, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -144,7 +144,7 @@ ProdutoVenda.remove = (produtoVendaId, result) => {
 
 // Remover o pedido através do ID
 ProdutoVenda.removeByPedido = (vendaId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE vendas_idVendas = ? `
+    sql.query(`DELETE FROM produtos_vendas WHERE Vendas_idVendas = ? `
         + vendaId, (err, res) => {
             if (err) {
                 console.log("Erro", err);

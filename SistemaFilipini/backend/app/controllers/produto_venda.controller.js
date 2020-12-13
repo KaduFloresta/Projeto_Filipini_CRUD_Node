@@ -1,15 +1,15 @@
 const produto_VendaModel = require("../models/produto_venda.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.produtos_idprodutos && !req.body.vendas_idVendas) {
+    if (!req.body.Produto_idProduto && !req.body.Vendas_idVendas) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
         const produtoVenda = new produto_VendaModel({
-            produtos_idprodutos: req.body.produtos_idprodutos,
-            vendas_idVendas: req.body.vendas_idVendas
+            Vendas_idVendas: req.body.Vendas_idVendas,
+            Produto_idProduto: req.body.Produto_idProduto
         });
 
         produto_VendaModel.create(produtoVenda, (err, data) => {
@@ -149,7 +149,7 @@ exports.delete = (req, res) => {
 
 // Deleta um pedido
 exports.deleteByPedido = (req, res) => {
-    produto_VendaModel.remove.apply(req.params.vendaId, (res, data) => {
+    produto_VendaModel.remove.apply(req.params.idProduto_Vendas, (res, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Venda não encontrada!" });
