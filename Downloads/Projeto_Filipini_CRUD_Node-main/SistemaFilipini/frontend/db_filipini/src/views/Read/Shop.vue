@@ -2,11 +2,11 @@
   <v-card>
     <v-card-text class="mx-auto mt2">
       <v-form>
-        <h5 class="text-danger">Lista de Produtos</h5>
+        <h5 class="text-danger">Lista de Vendas</h5>
         <hr />
         <v-data-table
           :headers="cabecalho"
-          :items="produtos"
+          :items="vendas"
           disable-pagination
           :hide-default-footer="true"
         >
@@ -15,7 +15,7 @@
               color="warning"
               small
               class="mr-2"
-              @click="editarProduto(item.id)"
+              @click="editarVendas(item.id)"
               ><v-icon small class="mr-1">mdi-pencil</v-icon>Atualizar
             </v-btn>
 
@@ -23,7 +23,7 @@
               color="error"
               small
               class="mr-2"
-              @click="deletarProduto(item.id)"
+              @click="deletarVenda(item.id)"
               width="120"
               ><v-icon small class="mr-1">mdi-delete</v-icon>Excluir
             </v-btn>
@@ -49,47 +49,47 @@
 </template>
 
 <script>
-import ProductService from "../../services/ProductService.js";
+import ShopService from "../../services/ShopService.js";
 
 export default {
   data() {
     return {
-      name: "ListUser",
+      name: "ListShop",
       msgSucesso: "",
       msgErro: "",
 
-      produtos: [],
+      vendas: [],
       cabecalho: [
         {
-          text: "Nome",
+          text: "ID da Venda",
           align: "center",
           sortable: true,
-          value: "nome",
+          value: "idVendas"
         },
         {
-          text: "Marca",
+          text: "Forma de Pgto",
           align: "center",
           sortable: true,
-          value: "marca",
+          value: "formaPgto",
         },
         {
-          text: "Fornecedor",
+          text: "ID do Cliente",
           align: "center",
           sortable: true,
-          value: "fornecedor",
+          value: "User_idUser",
         },
-        {
-          text: "Validade",
-          align: "center",
-          sortable: true,
-          value: "validade",
-        },
-        {
-          text: "Preço",
-          align: "center",
-          sortable: true,
-          value: "valor",
-        },
+        // {
+        //   text: "Total",
+        //   align: "center",
+        //   sortable: true,
+        //   value: "total",
+        // },
+        // {
+        //   text: "Data",
+        //   align: "center",
+        //   sortable: true,
+        //   value: "data",
+        // },
         {
           text: "Ação",
           align: "center",
@@ -101,36 +101,33 @@ export default {
   },
 
   mounted() {
-    this.buscarProduto();
+    this.buscarVenda();
   },
 
   methods: {
-    buscarProduto() {
-      ProductService.getAll()
+    buscarVenda() {
+      ShopService.getAll()
         .then((response) => {
-          this.produtos = response.data.map(this.formatarProduto);
+          this.vendas = response.data.map(this.formatarVenda);
         })
         .catch((e) => console.log(e));
     },
 
-    formatarProduto(produto) {
+    formatarVenda(vendas) {
       return {
-        id: produto.idProduto,
-        nome: produto.nome,
-        marca: produto.marca,
-        fornecedor: produto.fornecedor,
-        validade: produto.validade,
-        valor: produto.valor,
+        id: vendas.idVendas,
+        formaPgto: vendas.formaPgto,
+        User_idUser: vendas.User_idUser,
       };
     },
 
-    deletarProduto(id) {
-      ProductService.delete(id)
+    deletarVenda(id) {
+      ShopService.delete(id)
         .then((response) => {
-          if (confirm("Tem certeza que deseja excluir esse produto?")) {
+          if (confirm("Tem certeza que deseja excluir essa venda?")) {
             console.log(response);
-            this.buscarProduto();
-            this.msgSucesso = "O Produto foi deletado com sucesso!";
+            this.buscarVenda();
+            this.msgSucesso = "A venda foi deletada com sucesso!";
           }
         })
         .catch((e) => {
@@ -139,8 +136,8 @@ export default {
         });
     },
 
-    editarProduto(id) {
-      this.$router.push({ name: "DetailProduct", params: { id: id } });
+    editarVendas(id) {
+      this.$router.push({ name: "DetailShop", params: { id: id } });
     },
   },
 };

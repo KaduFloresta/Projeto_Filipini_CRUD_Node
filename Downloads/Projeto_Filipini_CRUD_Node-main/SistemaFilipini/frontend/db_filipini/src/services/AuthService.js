@@ -8,12 +8,12 @@ class AuthService {
 
     setUserData(data) {
         localStorage.setItem("user-token", data.accessToken);
-        localStorage.setItem("user-Type", data.tipo)
+        localStorage.setItem("user-Type", data.tipoUser);
     }
 
     logOut() {
-        localStorage.removeItem("user-token", data.accessToken);
-        localStorage.removeItem("user-Type", data.tipo)
+        localStorage.removeItem("user-token");
+        localStorage.removeItem("user-type");
     }
 
     isSignedIn() {
@@ -38,11 +38,11 @@ class AuthService {
         return localStorage.getItem("user-type") == 1;
     }
 
-    isCounter() {
+    isCollaborator() {
         return localStorage.getItem("user-type") == 2;
     }
 
-    isKitchen() {
+    isSupplier() {
         return localStorage.getItem("user-type") == 3;
     }
 }

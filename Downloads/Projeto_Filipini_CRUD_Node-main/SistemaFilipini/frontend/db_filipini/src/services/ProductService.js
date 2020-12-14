@@ -7,21 +7,21 @@ class ProductService {
         return http.post("/produto", data);
     }
 
-    // get(id) {
-    //     return http.get(`/produtos/${id}`);
-    // };
-
-    getAll() {
-        return http.get("/produtos");
+    get(id) {
+        return http.get(`/produto/${id}`);
     }
 
-    // update(id, data) {
-    //     return http.put(`/produtos/${id}`, data);
-    // };
+    getAll() {
+        return http.get("/produto");
+    }
 
-    // delete(id) {
-    //     return http.delete(`/produtos/${id}`);
-    // };
+    update(id, data) {
+        return http.put(`/produto/${id}`, data);
+    }
+    
+    delete(id) {
+        return http.delete(`/produto/${id}`);
+    }
 
     // deleteAll() {
     //     return http.delete("/produtos");

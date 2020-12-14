@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         });
     }
 }
-
+//leo
 exports.findOne = (req, res) => {
     VendaModel.findById(req.params.vendaId, (err, data) => {
         if (err) {
