@@ -1,30 +1,27 @@
 const sql = require("./db.js");
 
-const newLocal = function (venda) {
+const Venda = function (venda) {
     this.formaPgto = venda.formaPgto;
     this.User_idUser = venda.User_idUser;
 };
-//Construtor
-const Venda = newLocal
 
-//Cria um novo venda no BD
-Venda.create = (venda, result) => {
-    //Implementar criação de um novo venda no BD
-    console.log(venda)
-    sql.query(`INSERT INTO vendas (formaPgto, User_idUser) VALUES ('${venda.formaPgto}','${venda.User_idUser}')`, (err, res) => {
+// Cria um nova venda no BD
+Venda.create = (vendas, result) => {
+    // Implementa a criação de uma nova venda no BD
+    sql.query("INSERT INTO vendas SET ? ", vendas, (err, res) => {
         if (err) {
             console.log("Erro!", err);
-            result(err, null);z
+            result(err, null);
             return;
         }
-        console.log("vendas criado: ", { id_vendas: res.insertid, ...venda });
-        result(null, { id_vendas: res.insertid, ...venda });
+        console.log("Venda criada: ", { idVendas: res.idVendas, ...vendas });
+        result(null, { idVendas: res.idVendas, ...vendas });
     });
 };
 
-//Seleciona um venda através do ID
+// Seleciona uma venda através do ID
 Venda.findById = (vendaId, result) => {
-    sql.query("SELECT * FROM vendas WHERE idvendas = " + vendaId, (err, res) => {
+    sql.query("SELECT * FROM vendas WHERE idVendas = " + vendaId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -43,7 +40,7 @@ Venda.findById = (vendaId, result) => {
     });
 };
 
-//Seleciona todos os vendas
+// Seleciona todos as vendas
 Venda.getAll = (result) => {
     sql.query("SELECT * FROM vendas", (err, res) => {
         if (err) {
@@ -51,15 +48,35 @@ Venda.getAll = (result) => {
             result(null, err);
             return;
         }
-        console.log("vendas: ", res);
+        console.log("Vendas: ", res);
         result(null, res);
     });
 };
 
+// Atualiza as vendas através do ID
+Venda.updateById = (idVendas, venda, result) => {
+    sql.query(`UPDATE vendas 
+               SET formaPgto = ?
+               WHERE idVendas = ?`, [venda.formaPgto, idVendas], (err, res) => {
+        if (err) {
+            console.log("Erro", err);
+            result(null, err);
+        }
+        else if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+        }
+        else {
+            console.log("vendas encontrado: ", res[0]);
+            console.log("venda atualizado: ", { idVendas: idVendas, ...venda });
+            result(null, { idVendas: idVendas, ...venda });
+        }
+    });
+};
 
-//Remover o venda através do ID
-Venda.removeById = (vendaId, result) => {
-    sql.query("DELETE FROM vendas WHERE idvendas = ?", vendaId, (err, res) => {
+
+// Remove a venda através do ID
+Venda.remove = (idVendas, result) => {
+    sql.query("DELETE FROM vendas WHERE idVendas = ?", idVendas, (err, res) => {
         if (err) {
             console.log("Erro", err);
             result(null, err);
@@ -69,6 +86,19 @@ Venda.removeById = (vendaId, result) => {
         }
         else {
             result(null, res);
+        }
+    });
+};
+
+// Remove todos as vendas
+Venda.removeAll = (result) => {
+    sql.query("DELETE FROM vendas", (err, re) => {
+        if (err) {
+            console.log("Erro", err);
+            result(err);
+        }
+        else {
+            result(null);
         }
     });
 };

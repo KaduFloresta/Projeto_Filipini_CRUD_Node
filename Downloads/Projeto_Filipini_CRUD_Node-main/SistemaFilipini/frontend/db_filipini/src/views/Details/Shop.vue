@@ -5,55 +5,33 @@
         <h5 class="text-danger">Atualizar Produto</h5>
         <hr />
         <b-row>
-          <b-col cols="7">
+          <b-col cols="4">
             <v-text-field
-              label="Nome do Produto"
-              v-model="produto.nome"
+              label="ID da Venda"
+              v-model="vendas.idVendas"
               :rules="[
               (v) => /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi.test(v) || 'Digite o nome completo do produto!',
-              (v) => !!v || 'Nome do Produto é um campo obrigatório']"
+              (v) => !!v || 'ID é um campo obrigatório']"
               required
               error-count="2"
             >
             </v-text-field>
           </b-col>
-          <b-col cols="5">
-            <v-text-field
-              label="Marca"
-              v-model="produto.marca"
-              :rules="[(v) => !!v || 'Marca é um campo obrigatório']"
-              required
-            >
-            </v-text-field>
-          </b-col>
-        </b-row>
-
-        <b-row>
-          <b-col cols="5">
-            <v-text-field
-              label="Fornecedor"
-              v-model="produto.fornecedor"
-              :rules="[(v) => !!v || 'Fornecedor é um campo obrigatório']"
-              required
-            >
-            </v-text-field>
-          </b-col>
           <b-col cols="4">
             <v-text-field
-              label="Validade"
-              v-model="produto.validade"
-              v-mask="['##/##/####']"
-              :rules="[(v) => !!v || 'Validade é um campo obrigatório']"
+              label="Forma de Pagto"
+              v-model="vendas.formaPgto"
+              :rules="[(v) => !!v || 'Forma de Pagto é um campo obrigatório']"
               required
             >
             </v-text-field>
           </b-col>
-          <b-col cols="3">
+        
+          <b-col cols="4">
             <v-text-field
-              label="Valor"
-              v-model="produto.valor"
-              :rules="[(v) => !!v || 'Preço é um campo obrigatório']"
-              type="number"
+              label="ID do Cliente"
+              v-model="Vendas.User_idUser"
+              :rules="[(v) => !!v || 'ID do Cliente é um campo obrigatório']"
               required
             >
             </v-text-field>
@@ -75,7 +53,7 @@
             :disabled="!validForm"
             color="warning"
             small
-            @click="atualizarProduto"
+            @click="atualizarVenda"
             width="150"
             height="40px"
             >Atualizar
@@ -103,35 +81,35 @@
 </template>
 
 <script>
-import ProductService from "../../services/ProductService.js";
+import ShopService from "../../services/ShopService.js";
 
 export default {
   data() {
     return {
       validForm: "",
-      produto: null,
+      vendas: null,
       msgSucesso: "",
       msgErro: "",
     };
   },
 
   mounted() {
-    this.buscarProduto(this.$route.params.id);
+    this.buscarVenda(this.$route.params.id);
   },
 
   methods: {
-    buscarProduto(id) {
-      ProductService.get(id)
+    buscarVenda(id) {
+      ShopService.get(id)
         .then((response) => {
-          this.produto = response.data;
+          this.vendas = response.data;
         })
         .catch((e) => console.log(e));
     },
-    atualizarProduto() {
-      ProductService.update(this.produto.idProduto, this.produto)
+    atualizarVenda() {
+      ShopService.update(this.vendas.idVendas, this.vendas)
         .then((response) => {
-          this.msgSucesso = "O Produto " + response.data.nome + " foi atualizado!";
-          this.$router.push({ name: 'ListUser' });
+          this.msgSucesso = "A venda " + response.data.nome + " foi atualizada!";
+          this.$router.push({ name: 'CreateShop' });
         })
         .catch((e) => {
           this.msgErro = e;
@@ -140,7 +118,7 @@ export default {
     },
 
     voltar() {
-      this.$router.push("ListUser");
+      this.$router.push("CreateShop");
     }
   },
 };

@@ -1,9 +1,9 @@
 const VendaModel = require("../models/venda.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.formaPgto) {
+    if (!req.body.formaPgto || !req.body.User_idUser) {
         res.status(400).send({
-            message: "Conteúdo da Requisição está Vazio."
+            message: "Dados NÃO enviados."
         });
     }
     else {
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         VendaModel.create(venda, (err, data) => {
             if (err) {
                 res.status(500).send({
-                    message: err.message || "Ocorreu um erro!"
+                    message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
                 });
             }
             else {
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         });
     }
 }
-
+//leo
 exports.findOne = (req, res) => {
     VendaModel.findById(req.params.vendaId, (err, data) => {
         if (err) {
@@ -45,6 +45,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    console.log("erro X")
     VendaModel.getAll((err, data) => {
         if (err) {
             res.status(500).send({
@@ -57,8 +58,43 @@ exports.findAll = (req, res) => {
 };
 
 
-exports.deleteById = (req, res) => {
-    VendaModel.removeById(req.params.vendaId, (err, data) => {
+
+exports.update = (req, res) => {
+    console.log(req)
+    if (!req.body.formaPgto && !req.body.User_idUser) {
+        res.status(400).send({
+            message: "Conteúdo do corpo da requisição está vazio."
+        });
+    }
+    else {
+
+        const venda = new VendaModel({
+            formaPgto: req.body.formaPgto,
+            User_idUser: req.body.User_idUser,
+        });
+
+        VendaModel.updateById(req.params.vendaId, venda, (err, data) => {
+            if (err) {
+                if (err.kind == "not_found") {
+                    res.status(404).send({
+                        message: "Endereço não encontrado!"
+                    });
+                }
+                else {
+                    res.status(500).send({
+                        message: "Erro ao atualizar o endereço!"
+                    });
+                }
+            }
+            else {
+                res.send(data);
+            }
+        });
+    }
+};
+
+exports.delete = (req, res) => {
+    VendaModel.remove(req.params.vendaId, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({ message: "Venda não encontrada!" });
@@ -69,6 +105,17 @@ exports.deleteById = (req, res) => {
         }
         else {
             res.send({ message: "Venda deletada com sucesso!" });
+        }
+    });
+};
+ 
+exports.deleteAll = (req, res) => {
+    VendaModel.remove((err) => {
+        if (err) {
+            res.status(500).send({ message: "Erro ao deletar todas as vendas" });
+        }
+        else {
+            res.send({ message: "Todas oas vendas deletadas com sucesso!" });
         }
     });
 };

@@ -1,46 +1,46 @@
 const sql = require("./db.js");
 
 // Construtor
-const ProdutoVenda = function (produtoVenda) {
-    this.Produto_idProduto = produtoVenda.Produto_idProduto;
-    this.Vendas_idVendas = produtoVenda.Vendas_idVendas;
+const ProdutoVenda = function (produtoVendas) {
+    this.Vendas_idVendas = produtoVendas.Vendas_idVendas;
+    this.Produto_idProduto = produtoVendas.Produto_idProduto;
 }
 
-// Cria um nova relação produto_vendapedido no BD
+// Cria um nova relação produto_pedido no BD
 ProdutoVenda.create = (produtoVenda, result) => {
-    // Implementar criação de uma nova venda no BD
+    // Implementar criação de um novo pedido no BD
     sql.query("INSERT INTO produtos_vendas SET ? ", produtoVenda, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(err, null);
             return;
         }
-        console.log("Venda criada: ", { idVendas: res.insertid, ...pedido });
+        console.log("Pedido criado: ", { idProduto_Vendas: res.insertid, ...produtoVenda });
         result(null, { idProduto_Vendas: res.insertid, ...produtoVenda });
     });
 };
 
-// Seleciona todos os Produto da venda
+// Seleciona todos os produtos do pedido
 ProdutoVenda.getAll = (result) => {
-    sql.query(`SELECT * FROM produtos_vendas pv
-                NNER JOIN vendas veds ON (veds.idVendas = pv.Vendas_idVendas)
-                INNER JOIN produto prods ON (prods.idProduto = pv.Produto_idProduto)`, (err, res) => {
+    sql.query(`SELECT * FROM produtos_vendas prods_vends
+               INNER JOIN pedidos vends ON (vends.idVendas = prods_vends.vendas_idVendas)
+               INNER JOIN produtos prods ON (prods.idprodutos = prods_vends.produto_idProduto)`, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
             return;
         }
-        console.log("Vendas: ", res);
+        console.log("vendas: ", res);
         result(null, res);
     });
 };
 
-// Seleciona um produto dentro da venda através do ID do relacionamento
+// Seleciona um produto dentro do pedido através do ID do relacionamento
 ProdutoVenda.findById = (produtoVendaId, result) => {
-    sql.query(`SELECT * FROM produtos_vendas pv
-    INNER JOIN vendas veds ON (veds.idVendas = pv.vendas_idVendas)
-    INNER JOIN produto prods ON (prods.idProduto = pv.Produto_idProduto)
-    WHERE pv.idProduto_vendas = ${produtoVendaId}`, (err, res) => {
+    sql.query(`SELECT * FROM produtos_vendas prods_vends
+    INNER JOIN vendas vends ON (vends.idVendas = prods_vends.vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idprodutos = prods_vends.produto_idProduto)
+    WHERE prods_vends.idprodutos_vendas = ? ` + produtoVendaId, (err, res) => {
 
         if (err) {
             console.log("Erro!", err);
@@ -48,8 +48,8 @@ ProdutoVenda.findById = (produtoVendaId, result) => {
             return;
         }
 
-        else if (res.length) {
-            console.log("Produto encontrados: ", res[0]);
+        if (res.length) {
+            console.log("Produto encontrado: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -60,22 +60,21 @@ ProdutoVenda.findById = (produtoVendaId, result) => {
     });
 };
 
-// Seleciona um produto dentro da venda através do ID do relacionamento
-ProdutoVenda.getByProduto = (produtoVendaId, result) => {
-    sql.query(`SELECT * FROM produtos_vendas pv
-    INNER JOIN vendas veds ON (veds.idVendas = pv.Vendas_idVendas)
-    INNER JOIN produto prods ON (prods.idProduto = pv.Produto_idProduto)
-    WHERE pv.idProduto_Vendas = ${produtoVendaId}`, (err, res) => {
-
+// Seleciona um produto dentro do pedido através do ID do pedido
+ProdutoVenda.findById = (vendaId, result) => {
+    sql.query(`SELECT * FROM produtos_vendas prods_vends
+    INNER JOIN vendas vends ON (vends.idVendas = prods_vends.vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idprodutos = prods_vends.produto_idProduto)
+    WHERE vends.idVendas = ? ` + vendaId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
             return;
         }
 
-        else if (res.length) {
-            console.log("Produto encontrados: ", res[0]);
-            result(null, res[0]);
+        if (res.length) {
+            console.log("Venda encontrada: ", res);
+            result(null, res);
             return;
         }
 
@@ -85,22 +84,21 @@ ProdutoVenda.getByProduto = (produtoVendaId, result) => {
     });
 };
 
-// Seleciona um produto dentro da venda através do ID do relacionamento
-ProdutoVenda.getByVenda = (produtoVendaId, result) => {
-    sql.query(`SELECT * FROM produtos_vendas pv
-    INNER JOIN vendas veds ON (veds.idVendas = pv.Vendas_idVendas)
-    INNER JOIN produto prods ON (prods.idProduto = pv.Produto_idProduto)
-    WHERE pv.idProduto_Vendas = ${produtoVendaId}`, (err, res) => {
-
+// Seleciona um produto dentro do pedido através do ID do produto
+ProdutoVenda.findById = (produtoId, result) => {
+    sql.query(`SELECT * FROM produtos_vendas prods_vends
+    INNER JOIN vendas vends ON (vends.idVendas = prods_vends.vendas_idVendas)
+    INNER JOIN produtos prods ON (prods.idprodutos = prods_vends.produto_idProduto)
+    WHERE vends.idProdutos = ? ` + produtoId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
             return;
         }
 
-        else if (res.length) {
-            console.log("Produto encontrados: ", res[0]);
-            result(null, res[0]);
+        if (res.length) {
+            console.log("Produto encontrado: ", res);
+            result(null, res);
             return;
         }
 
@@ -111,12 +109,28 @@ ProdutoVenda.getByVenda = (produtoVendaId, result) => {
 };
 
 
-
-// Remover atráves da PK da tabela de relação
-ProdutoVenda.remove = (vendaId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE idProduto_vendas = ${vendaId}`, (err, res) => {
+// Atualizar o produto dentro do pedido através do ID
+ProdutoVenda.updateById = (produtoVenda, result) => {
+    sql.query("UPDATE produtos SET produtos_vendas SET = ?", produtoVenda, (err, res) => {
         if (err) {
-            console.log("Erro,", err);
+            console.log("Erro", err);
+            result(null, err);
+        }
+        else if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+        }
+        else {
+            console.log("Produto atualizado: ", { idProdutos: produtoVenda, ...produto });
+            result(null, { idProdutos: produtoVenda, ...produto });
+        }
+    });
+};
+
+// Remover o pedido através do ID
+ProdutoVenda.remove = (produtoVendaId, result) => {
+    sql.query("DELETE FROM produtos_vendas WHERE idProduto_Vendas = ?", produtoVendaId, (err, res) => {
+        if (err) {
+            console.log("Erro", err);
             result(null, err);
         }
         else if (res.affectedRows == 0) {
@@ -128,35 +142,49 @@ ProdutoVenda.remove = (vendaId, result) => {
     });
 };
 
-
-// Remover a venda através do ID
-ProdutoVenda.removeByVenda = (vendaId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE vendas_idVendas = ${vendaId} `, (err, res) => {
-        if (err) {
-            console.log("Erro,", err);
-            result(null, err);
-        }
-        else if (res.affectedRows == 0) {
-            result({ kind: "not_found" }, null);
-        }
-        else {
-            result(null, res);
-        }
-    });
+// Remover o pedido através do ID
+ProdutoVenda.removeByPedido = (vendaId, result) => {
+    sql.query(`DELETE FROM produtos_vendas WHERE Vendas_idVendas = ? `
+        + vendaId, (err, res) => {
+            if (err) {
+                console.log("Erro", err);
+                result(null, err);
+            }
+            else if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+            }
+            else {
+                result(null, res);
+            }
+        });
 };
 
 // Remover o produto através do ID
 ProdutoVenda.removeByProduto = (produtoId, result) => {
-    sql.query(`DELETE FROM produtos_vendas WHERE vendas_idVendas = ${produtoId}`, (err, res) => {
+    sql.query(`DELETE FROM produtos_vendas WHERE produto_idProduto = ? `
+        + produtoId, (err, res) => {
+            if (err) {
+                console.log("Erro", err);
+                result(null, err);
+            }
+            else if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+            }
+            else {
+                result(null, res);
+            }
+        });
+};
+
+// Remover todos os produtos de um pedido
+ProdutoVenda.removeAll = (result) => {
+    sql.query("DELETE FROM produtos_vendas", (err, re) => {
         if (err) {
-            console.log("Erro, produto nao encontrado", err);
-            result(null, err);
-        }
-        else if (res.affectedRows == 0) {
-            result({ kind: "not_found" }, null);
+            console.log("Erro", err);
+            result(err);
         }
         else {
-            result(null, res);
+            result(null);
         }
     });
 };

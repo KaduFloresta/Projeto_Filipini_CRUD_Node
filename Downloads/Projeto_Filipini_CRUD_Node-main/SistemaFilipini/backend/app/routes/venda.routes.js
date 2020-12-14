@@ -8,7 +8,10 @@ module.exports = app => {
     app.get("/vendas/:vendaId", vendaController.findOne);
     // GET = "Buscando" todos os vendas no BD
     app.get("/vendas", vendaController.findAll);
-    // DELETE = Deletar o venda do BD pelo ID
-    app.delete("/vendas/:vendaId", vendaController.deleteById);
-
+    // // PUT = Alterar os dados do venda pelo ID 
+    app.put("/vendas/:vendaId", vendaController.update); 
+    // // DELETE = Deletar o venda do BD pelo ID
+    app.delete("/vendas/:vendaId", vendaController.delete);
+    // // DELETE = Deletar todos os vendas no BD
+    // app.delete("/vendas", vendaController.deleteAll);
 }

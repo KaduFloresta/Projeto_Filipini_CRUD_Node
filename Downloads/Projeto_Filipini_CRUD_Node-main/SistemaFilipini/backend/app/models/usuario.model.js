@@ -34,7 +34,7 @@ Usuario.create = (usuario, result) => {
 
 // Seleciona um endereco através do ID
 Usuario.findById = (usuarioId, result) => {
-    sql.query("SELECT * FROM user WHERE idUser = " + usuarioId, (err, res) => {
+    sql.query("SELECT * FROM user INNER JOIN endereco ON user.Endereco_idEndereco = endereco.idEndereco WHERE idUser = " + usuarioId, (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
@@ -55,7 +55,7 @@ Usuario.findById = (usuarioId, result) => {
 
 // Seleciona todos os usuarios
 Usuario.getAll = (result) => {
-    sql.query("SELECT * FROM user", (err, res) => {
+    sql.query("SELECT * FROM user INNER JOIN endereco ON user.Endereco_idEndereco = endereco.idEndereco", (err, res) => {
         if (err) {
             console.log("Erro!", err);
             result(null, err);
