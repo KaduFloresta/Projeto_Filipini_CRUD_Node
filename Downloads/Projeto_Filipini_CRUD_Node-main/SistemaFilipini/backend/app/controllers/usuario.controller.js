@@ -1,7 +1,8 @@
 const UsuarioModel = require("../models/usuario.model.js");
+const EnderecoModel = require("../models/endereco.model.js");
 
 exports.create = (req, res) => {
-    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
+    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf && !req.body.cnpj) {
         res.status(400).send({
             message: "Dados NÃO enviados."
         });
@@ -9,28 +10,39 @@ exports.create = (req, res) => {
     else {
         // 1ª maneira de criar o usuario sem incriptação da senha
         // const usuario = new UsuarioModel(req.body);
-
-        // 2ª maneira de criar o usuario
-        const usuario = new UsuarioModel({
-            tipoUser: req.body.tipoUser,
-            nome: req.body.nome,
-            email: req.body.email,
-            fone: req.body.fone,
-            cpf: req.body.cpf,
-            cnpj: req.body.cnpj,
-            Endereco_idEndereco: req.body.Endereco_idEndereco
+        const endereco = new EnderecoModel({
+            rua: req.body.rua,
+            numero: req.body.numero,
+            bairro: req.body.bairro,
+            cidade: req.body.cidade,
+            estado: req.body.estado,
+            cep: req.body.cep
         });
 
-        UsuarioModel.create(usuario, (err, data) => {
-            if (err) {
-                res.status(500).send({
-                    message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
-                });
-            }
-            else {
-                res.send(data);
-            }
-        });
+        // Promise = promessa de execução
+        const result = function (_, value) {
+            const usuario = new UsuarioModel({
+                tipoUser: req.body.tipoUser,
+                nome: req.body.nome,
+                email: req.body.email,
+                fone: req.body.fone,
+                cpf: req.body.cpf,
+                cnpj: req.body.cnpj,
+                Endereco_idEndereco: value.idEndereco
+            });
+
+            UsuarioModel.create(usuario, (err, data) => {
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Ocorreu um erro, nao foi possivel criar um usuário!"
+                    });
+                }
+                else {
+                    res.send(data);
+                }
+            });
+        };
+        EnderecoModel.create(endereco, result);
     }
 }
 
@@ -67,12 +79,21 @@ exports.findAll = (req, res) => {
 
 
 exports.update = (req, res) => {
-    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf || !req.body.cnpj) {
+    if (!req.body.tipoUser || !req.body.nome || !req.body.email || !req.body.fone || !req.body.cpf && !req.body.cnpj) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição está vazio."
         });
     }
     else {
+        const endereco = new EnderecoModel({
+            rua: req.body.rua,
+            numero: req.body.numero,
+            bairro: req.body.bairro,
+            cidade: req.body.cidade,
+            estado: req.body.estado,
+            cep: req.body.cep
+        });
+
         const usuario = new UsuarioModel({
             tipoUser: req.body.tipoUser,
             nome: req.body.nome,
@@ -83,6 +104,7 @@ exports.update = (req, res) => {
             Endereco_idEndereco: req.body.Endereco_idEndereco
         });
 
+        EnderecoModel.updateById(req.body.Endereco_idEndereco, endereco, () =>{})
         UsuarioModel.updateById(req.params.usuarioId, usuario, (err, data) => {
             if (err) {
                 if (err.kind == "not_found") {
